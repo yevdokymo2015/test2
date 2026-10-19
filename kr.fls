@@ -1,9 +1,9 @@
-PWD d:\GitHub\Realise1_latexbookA5-2gen_Electonic01
+PWD d:\GitHub\test2
 INPUT C:\Users\serge\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\kr.tex
+INPUT d:\GitHub\test2\kr.tex
 OUTPUT kr.log
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\krvntu.cls
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\krvntu.cls
+INPUT d:\GitHub\test2\texmf\krvntu.cls
+INPUT d:\GitHub\test2\texmf\krvntu.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\extsizes\extreport.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\extsizes\extreport.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size11.clo
@@ -90,8 +90,8 @@ INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsopn.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\cmap.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\cmap.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\pscyr.sty
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\pscyr.sty
+INPUT d:\GitHub\test2\texmf\pscyr.sty
+INPUT d:\GitHub\test2\texmf\pscyr.sty
 INPUT .\texmf\t2aftm.fd
 INPUT .\texmf\t2aftm.fd
 INPUT texmf\t2aftm.fd
@@ -99,7 +99,7 @@ INPUT .\texmf\t2afer.fd
 INPUT .\texmf\t2afer.fd
 INPUT texmf\t2afer.fd
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\map\pscyr.map
+INPUT d:\GitHub\test2\texmf\fonts\map\pscyr.map
 INPUT C:\Program Files\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\ragged2e\ragged2e.sty
@@ -254,7 +254,7 @@ INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT .\main\config.tex
 INPUT .\main\config.tex
 INPUT main\config.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\t2a.cmap
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\t2a.cmap
 OUTPUT kr.pdf
@@ -294,34 +294,34 @@ OUTPUT kr.out
 INPUT .\main\titlepage.tex
 INPUT .\main\titlepage.tex
 INPUT main\titlepage.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmrc6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmrc6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmri6a.tfm
 INPUT C:\Program Files\MiKTeX\tex\generic\stringenc\se-pdfdoc.def
 INPUT C:\Program Files\MiKTeX\tex\generic\stringenc\se-pdfdoc.def
 INPUT C:\Program Files\MiKTeX\tex\generic\stringenc\se-pdfdoc.def
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\vf\ftmrc6a.vf
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\vf\ftmrc6a.vf
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\t2\t2a.enc
 INPUT .\main\titlepage2.tex
 INPUT .\main\titlepage2.tex
 INPUT main\titlepage2.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmri6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmbi6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmbi6a.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\microtype\mt-cmr.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\microtype\mt-cmr.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\microtype\mt-cmr.cfg
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmri6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmri6a.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\ot1.cmap
 INPUT C:\Program Files\MiKTeX\tex\latex\cmap\ot1.cmap
@@ -348,11 +348,16 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT .\main\contacts.tex
 INPUT .\main\contacts.tex
 INPUT main\contacts.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
 INPUT .\main\foreword.tex
 INPUT .\main\foreword.tex
 INPUT main\foreword.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmri6a.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
+INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\latt1000.tfm
 INPUT .\kr.toc
 INPUT .\kr.toc
 INPUT kr.toc
@@ -360,25 +365,21 @@ OUTPUT kr.toc
 INPUT .\main\abbreviations.tex
 INPUT .\main\abbreviations.tex
 INPUT main\abbreviations.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmb6a.tfm
 INPUT .\main\introduction.tex
 INPUT .\main\introduction.tex
 INPUT main\introduction.tex
 INPUT .\main\chapter1.tex
 INPUT .\main\chapter1.tex
 INPUT main\chapter1.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmbi6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmbi6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmtt.fd
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\latt1095.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1095.tfm
 INPUT .\img\figure1_1.png
@@ -408,9 +409,9 @@ INPUT main\summary.tex
 INPUT .\main\approbation.tex
 INPUT .\main\approbation.tex
 INPUT main\approbation.tex
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmrc6a.tfm
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\vf\ftmrc6a.vf
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\tfm\ftmr6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmrc6a.tfm
+INPUT d:\GitHub\test2\texmf\fonts\vf\ftmrc6a.vf
+INPUT d:\GitHub\test2\texmf\fonts\tfm\ftmr6a.tfm
 INPUT .\main\appendix-a.tex
 INPUT .\main\appendix-a.tex
 INPUT main\appendix-a.tex
@@ -442,13 +443,15 @@ INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcr
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\latt1095.pk
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\latt1095.pk
+INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\latt1000.pk
+INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\latt1000.pk
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\times.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\times.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesbd.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesbd.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesbi.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesbi.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesi.pfb
-INPUT d:\GitHub\Realise1_latexbookA5-2gen_Electonic01\texmf\fonts\type1\timesi.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\times.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\times.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesbd.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesbd.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesbi.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesbi.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesi.pfb
+INPUT d:\GitHub\test2\texmf\fonts\type1\timesi.pfb

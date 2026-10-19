@@ -1,14 +1,14 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'kr.blg'
-[65] biber-MSWIN64:342> INFO - === 
-[83] Biber.pm:421> INFO - Reading 'kr.bcf'
-[199] Biber.pm:1002> INFO - Found 13 citekeys in bib section 0
-[215] Biber.pm:4487> INFO - Processing section 0
-[226] Biber.pm:4678> INFO - Looking for bibtex file 'bib/bibdata.bib' for section 0
-[230] bibtex.pm:1713> INFO - LaTeX decoding ...
-[307] bibtex.pm:1519> INFO - Found BibTeX data source 'bib/bibdata.bib'
-[394] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'variable = shifted' with 'variable = non-ignorable'
-[394] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[394] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'uk-UA'
-[412] bbl.pm:676> INFO - Writing 'kr.bbl' with encoding 'UTF-8'
-[418] bbl.pm:779> INFO - Output to kr.bbl
+[58] biber-MSWIN64:342> INFO - === 
+[75] Biber.pm:421> INFO - Reading 'kr.bcf'
+[170] Biber.pm:1002> INFO - Found 13 citekeys in bib section 0
+[184] Biber.pm:4487> INFO - Processing section 0
+[195] Biber.pm:4678> INFO - Looking for bibtex file 'bib/bibdata.bib' for section 0
+[199] bibtex.pm:1713> INFO - LaTeX decoding ...
+[275] bibtex.pm:1519> INFO - Found BibTeX data source 'bib/bibdata.bib'
+[357] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'variable = shifted' with 'variable = non-ignorable'
+[357] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[358] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'uk-UA'
+[374] bbl.pm:676> INFO - Writing 'kr.bbl' with encoding 'UTF-8'
+[380] bbl.pm:779> INFO - Output to kr.bbl
