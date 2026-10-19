@@ -1,0 +1,22 @@
+%Filename: t2aiso.fd
+%Created by: tex iso-drv
+%Created using fontinst v1.933
+
+%THIS FILE SHOULD BE PUT IN A TEX INPUTS DIRECTORY
+
+\ProvidesFile{t2aiso.fd}
+   [2016/11/13 Fontinst v1.933 font definitions for T2A/iso.]
+
+\DeclareFontFamily{T2A}{iso}{}
+
+\DeclareFontShape{T2A}{iso}{m}{n}{
+   <-> isor6a
+}{}
+
+\DeclareFontShape{T2A}{iso}{m}{it}{
+   <-> isori6a
+}{}
+
+\DeclareFontShape{T2A}{iso}{m}{sl}{<->ssub * iso/m/it}{}
+
+\endinput

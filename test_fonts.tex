@@ -1,0 +1,42 @@
+﻿\documentclass{./texmf/krvntu}
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,ukrainian]{babel}
+\usepackage{./texmf/pscyr}
+
+\input{./texmf/t2aftm.fd}
+\input{./texmf/t2afer.fd}
+
+\pdfmapfile{+pscyr.map}
+
+\renewcommand{\rmdefault}{ftm}
+\renewcommand{\sfdefault}{fer}
+
+% Визначення команд форматування
+\newcommand{\term}[1]{\textbf{#1}}
+\newcommand{\important}[1]{\textbf{\textit{#1}}}
+\newcommand{\example}[1]{\textit{#1}}
+
+\begin{document}
+
+\section{Тест шрифтів PSCyr}
+
+Це звичайний текст українською мовою.
+
+\textbf{Це жирний текст українською мовою.}
+
+\textit{Це курсивний текст українською мовою.}
+
+\textbf{\textit{Це жирний курсивний текст українською мовою.}}
+
+\section*{Перевірка команд}
+
+\term{Ключовий термін} — використовує жирний шрифт.
+
+\important{Важливе поняття} — використовує жирний курсив.
+
+\example{Приклад або іноземний термін} — використовує курсив.
+
+\end{document}

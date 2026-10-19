@@ -1,0 +1,137 @@
+PWD d:\GitHub\Realise1_latexbookA5
+INPUT C:\Users\serge\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT d:\GitHub\Realise1_latexbookA5\test_fonts.tex
+OUTPUT test_fonts.log
+INPUT .\texmf\krvntu.cls
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\krvntu.cls
+INPUT texmf\krvntu.cls
+INPUT C:\Program Files\MiKTeX\tex\latex\extsizes\extreport.cls
+INPUT C:\Program Files\MiKTeX\tex\latex\extsizes\extreport.cls
+INPUT C:\Program Files\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Program Files\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Program Files\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\base\exscale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\exscale.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Program Files\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Program Files\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Program Files\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\larm1095.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\babel.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\babel.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\txtbabel.def
+INPUT C:\Program Files\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\en\babel-english.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\en\babel-english.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\en\babel-english.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\uk\babel-ukrainian.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\uk\babel-ukrainian.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\uk\babel-ukrainian.tex
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\en\babel-en.ini
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-english\english.ldf
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-english\english.ldf
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-english\english.ldf
+INPUT C:\Program Files\MiKTeX\tex\generic\babel\locale\uk\babel-uk.ini
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-ukrainian\ukraineb.ldf
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-ukrainian\ukraineb.ldf
+INPUT C:\Program Files\MiKTeX\tex\latex\babel-ukrainian\ukraineb.ldf
+INPUT C:\Program Files\MiKTeX\tex\latex\tools\indentfirst.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\tools\indentfirst.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\setspace\setspace.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\setspace\setspace.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\titlesec\titlesec.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\titlesec\titlesec.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fancyhdr\fancyhdr.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\fancyhdr\fancyhdr.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsmath.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsmath.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsopn.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amstext.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amstext.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsgen.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsgen.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsbsy.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsbsy.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\amsmath\amsopn.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\cmap\cmap.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\cmap\cmap.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\fontenc.sty
+INPUT .\texmf\pscyr.sty
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\pscyr.sty
+INPUT texmf\pscyr.sty
+INPUT .\texmf\t2aftm.fd
+INPUT .\texmf\t2aftm.fd
+INPUT texmf\t2aftm.fd
+INPUT .\texmf\t2afer.fd
+INPUT .\texmf\t2afer.fd
+INPUT texmf\t2afer.fd
+INPUT C:\Users\serge\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\map\pscyr.map
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\tfm\ftmr6a.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\cmap\t2a.cmap
+INPUT C:\Program Files\MiKTeX\tex\latex\cmap\t2a.cmap
+OUTPUT test_fonts.pdf
+INPUT C:\Program Files\MiKTeX\tex\latex\cmap\t2a.cmap
+INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT .\test_fonts.aux
+INPUT .\test_fonts.aux
+INPUT test_fonts.aux
+OUTPUT test_fonts.aux
+INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Program Files\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\tfm\ftmb6a.tfm
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\tfm\ftmri6a.tfm
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\tfm\ftmbi6a.tfm
+INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\t2\t2a.enc
+INPUT test_fonts.aux
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\times.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\times.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesbd.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesbd.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesbi.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesbi.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesi.pfb
+INPUT d:\GitHub\Realise1_latexbookA5\texmf\fonts\type1\timesi.pfb

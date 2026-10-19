@@ -1,0 +1,243 @@
+﻿% Load local class from ./texmf/krvntu.cls
+\documentclass{krvntu}
+
+% --- ШРИФТИ ТА МОВА ---
+% Використовуємо Times для кращої підтримки кирилиці
+\usepackage{cmap}              % для пошуку в PDF (завантажується ПЕРЕД fontenc)
+\usepackage[T2A]{fontenc}     % кирилична кодування
+\usepackage[utf8]{inputenc}   % UTF-8 вхідний формат
+\usepackage[english,ukrainian]{babel}
+\usepackage{pscyr}            % PSCyr шрифти для кирилиці
+
+% Явне завантаження font definition файлів
+\input{./texmf/t2aftm.fd}
+\input{./texmf/t2afer.fd}
+
+% Реєстрація map файлу для Type1 шрифтів
+\pdfmapfile{+pscyr.map}
+
+\renewcommand{\rmdefault}{ftm}  % Times Roman як основний
+\renewcommand{\sfdefault}{fer}  % Courier для sans-serif
+
+% --- ГРАФІКА ТА ТАБЛИЦІ ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{ragged2e}
+%\usepackage{pgf-pie} % Розкоментуйте, якщо пакет встановлено
+\usepackage{array}     
+\usepackage{longtable}
+\usepackage{booktabs}        % для професійних таблиць
+\usepackage{caption}         % для кращих підписів
+
+\usepackage{tabularx}        % для таблиць з автоматичним підбором ширини стовпців
+\usepackage{multirow} % (опціонально, тут не знадобився, але часто потрібен)
+
+% Налаштування підписів для А5
+\captionsetup{
+  font=small,                % менший шрифт підписів
+  labelfont=bf,              % жирний label
+  justification=centering,   % центрування
+  skip=8pt,                  % відступ від об'єкта
+  labelsep=space             % пробіл після номера (без крапки)
+}
+
+% Українські назви для рисунків та таблиць (згідно ДСТУ)
+\addto\captionsukrainian{%
+  \renewcommand{\figurename}{Рисунок}%
+  \renewcommand{\tablename}{Таблиця}%
+}
+
+% Зменшення шрифту у таблицях (як у підписах)
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabular}{\small}
+\AtBeginEnvironment{longtable}{\small} 
+
+% --- БІБЛІОГРАФІЯ ---
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{bib/bibdata.bib}
+
+% --- ПОСИЛАННЯ ТА ПІДРАХУНОК СТОРІНОК ---
+\usepackage{refcount}  % для арифметичних операцій з номерами сторінок
+
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\AtBeginDocument{\let\oldcite\cite\renewcommand{\cite}{\parencite}}
+
+% --- СПИСКИ ДЛЯ А5 ---
+\usepackage{enumitem}
+\setlist{
+  itemsep=3pt,                % невеликі відступи між пунктами
+  parsep=2pt,                 % відступи між абзацами
+  topsep=6pt,                 % відступ зверху списку
+  partopsep=2pt,              % додатковий відступ
+  leftmargin=2em,             % фіксований лівий відступ
+  labelwidth=1.5em,           % ширина мітки
+  labelsep=0.5em              % відстань між міткою та текстом
+}
+% Налаштування для enumerate (БЕЗ КРАПКИ)
+\setlist[enumerate]{
+  label=\arabic*),            % нумерація 1) 2) 3)
+  leftmargin=2.5em            % більший відступ для дужки
+}
+% Налаштування для itemize (ДЕФІС замість крапки)
+\setlist[itemize]{
+  label=--                    % дефіс як маркер
+}
+
+% --- ТИПОГРАФІЯ ---
+\usepackage{microtype}
+\microtypesetup{expansion=false}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{multicol}
+
+% Налаштування переносів
+\pretolerance=1000
+\tolerance=2000   
+\emergencystretch=2em
+\hyphenpenalty=500
+\exhyphenpenalty=200
+
+% Типографічні правила
+\frenchspacing  % однаковий пробіл після крапки
+\sloppy  % менше переповнених рядків
+
+% Український тире (—) замість дефіса
+\newcommand{\mdash}{\,---\,}
+
+% Наскрізна нумерація виносок через весь документ (не скидається на кожному розділі)
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
+
+% --- ПРОФЕСІЙНІ КОМАНДИ ВИДІЛЕННЯ ТЕКСТУ ---
+% Для ключових термінів (жирний)
+\newcommand{\term}[1]{\textbf{#1}}
+% Для важливих понять (жирний курсив)
+\newcommand{\important}[1]{\textbf{\textit{#1}}}
+% Для прикладів та іноземних термінів (курсив)
+\newcommand{\example}[1]{\textit{#1}}
+% Для акценту на ключових словах
+\newcommand{\keyword}[1]{\emph{#1}}
+% Для виділення понять що визначаються
+\newcommand{\defterm}[1]{\textbf{\textit{#1}}}
+% Центроване виділення
+\newcommand{\centered}[1]{\begin{center}#1\end{center}}
+% Жирний заголовок параграфа без нумерації (з автоматичним відступом), без крапки
+\newcommand{\parheading}[1]{\par\vspace{6pt}\noindent\textbf{#1}\space}
+% Для попереджень
+\newcommand{\warning}[1]{\textbf{\textsf{#1}}}
+% Для технічних термінів іноземною
+\newcommand{\foreign}[1]{\textit{#1}}
+% Для підзаголовків у тексті (без номера)
+\newcommand{\subheading}[1]{\par\vspace{8pt}\noindent\textbf{#1}\par\vspace{4pt}\noindent}
+
+% --- КОД І МАТЕМАТИКА ---
+\usepackage{amsmath} 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=black,
+    pdfencoding=auto
+}
+
+% --- НАЛАШТУВАННЯ КОДУ ДЛЯ А5 ---
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  frame=single,
+  basicstyle={\small\ttfamily},        % small замість footnotesize для А5
+  language=Java,
+  breaklines=true,
+  tabsize=2,
+  extendedchars=true,
+  backgroundcolor=\color{codebg},      % фон для кращої читабельності
+  numbers=left,                        % нумерація рядків
+  numberstyle=\tiny\color{gray},       % стиль номерів
+  xleftmargin=2em,                     % відступ зліва
+  framexleftmargin=1.5em,              % рамка з відступом
+  breakatwhitespace=false,             % переноси не тільки на пробілах
+  showstringspaces=false,              % не показувати пробіли в рядках
+  literate={і}{{\cyrii}}1 {ї}{{\cyryi}}1 {є}{{\cyrje}}1
+}
+
+% --- ДАНІ ТИТУЛКИ ТА МЕТАДАНІ ---
+% Використовуємо окремі файли для налаштувань та контенту титульних сторінок
+\input{main/config.tex}      % Загальні налаштування проекту (метадані також тут)
+
+% БЛОКУВАННЯ СТАНДАРТНОЇ ТИТУЛКИ
+\renewcommand{\maketitle}{}
+
+\begin{document}
+
+% --- ТИТУЛЬНІ СТОРІНКИ ---
+\input{main/titlepage.tex}   % Перша сторінка (Титул)
+\input{main/titlepage2.tex}  % Друга сторінка (Зворот титулу з анотацією та УДК)
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{4}  % Починаємо основний текст з 4 сторінки
+
+%  КОНТАКТИ АВТОРА
+\input{main/contacts.tex}
+
+% Передмова
+\input{main/foreword.tex}
+
+\tableofcontents % Зміст
+
+% --- СТРУКТУРА КНИГИ ---
+\input{main/abbreviations.tex} % Списко скорочень
+
+% --- НАЛАШТУВАННЯ НУМЕРАЦІЇ ---
+\pagenumbering{arabic}
+\setcounter{page}{12}  % Титульні сторінки вважаються 1 та 2, починаємо з 3
+\pagestyle{plain}  
+
+% --- ВСТУП ---
+\input{main/introduction.tex}
+
+% --- ОСНОВНА ЧАСТИНА ---
+\clearpage
+\input{main/chapter1.tex}            
+%\input{main/chapter2.tex}            
+%\input{main/chapter3.tex} 
+%\input{main/chapter4.tex}  
+%\input{main/chapter5.tex}  
+%\input{main/chapter6.tex}  
+\input{main/summary.tex}   
+
+\input{main/approbation.tex}    % Апробація матеріалів досліження
+
+% --- БІБЛІОГРАФІЯ ---
+\clearpage
+\printbibliography[title={Список використаних джерел},heading=bibintoc]
+
+% --- ДОДАТКИ ---
+\appendix                                    
+\input{main/appendix-a.tex}
+\input{main/appendix-b.tex}
+%\input{main/appendix-c.tex}
+%\input{main/appendix-d.tex}
+%\input{main/appendix-e.tex}
+
+% ПIСЛЯМОВА 
+%\input{main/epilogue.tex}
+
+% НОВА СТОРІНКА ПОДЯКИ
+\input{main/thanks.tex}
+
+% АПРОБАЦІЯ ТА ПРАКТИЧНЕ ВИКОРИСТАННЯ
+%\input{main/approbation.tex}
+
+% ВІДОМОСТІ ПРО ВИДАННЯ (ВИХІДНІ ДАНІ)
+\input{main/colophon.tex}
+
+\end{document}

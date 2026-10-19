@@ -1,0 +1,10 @@
+﻿%!TEX root = ../kr.tex
+
+% Використовуємо стиль APA (тому що у kr.tex підключено пакет apacite)
+\bibliographystyle{apacite}
+
+%prevent the last bibliography entry from being split in a new page.
+%"etoolbox" package need to be loaded
+\AtBeginEnvironment{thebibliography}{\interlinepenalty=10000}
+
+\bibliography{bibdata}
