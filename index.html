@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Обери інтерактивну історію: трилер про QR-шахрайство, сімейний кібердетектив або оповідь про дружбу й таємниці.">
+    <title>Обери свою історію</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 48px 20px;
+            color: #25233a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.2), transparent 45%),
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        main {
+            width: min(100%, 1080px);
+            margin: 0 auto;
+        }
+
+        .intro {
+            margin: 0 auto 38px;
+            color: white;
+            text-align: center;
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 6vw, 3.6rem);
+            line-height: 1.1;
+        }
+
+        .intro p:last-child {
+            max-width: 620px;
+            margin: 16px auto 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.92;
+        }
+
+        .stories {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .story-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 320px;
+            padding: 30px;
+            background: white;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 20px;
+            box-shadow: 0 18px 45px rgba(35, 20, 74, 0.2);
+        }
+
+        .story-number {
+            margin: 0 0 14px;
+            color: #6b61c9;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .story-card h2 {
+            margin: 0 0 12px;
+            color: #32265c;
+            font-size: 1.55rem;
+            line-height: 1.25;
+        }
+
+        .genre {
+            align-self: flex-start;
+            margin: 0 0 16px;
+            padding: 6px 10px;
+            color: #5146a5;
+            background: #f0efff;
+            border-radius: 999px;
+            font-size: 0.83rem;
+            font-weight: 600;
+        }
+
+        .description {
+            margin: 0 0 26px;
+            color: #555366;
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .read-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            margin-top: auto;
+            padding: 12px 18px;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 160ms ease, box-shadow 160ms ease;
+        }
+
+        .read-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(102, 90, 190, 0.3);
+        }
+
+        .read-link:focus-visible {
+            outline: 3px solid #29204d;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 820px) {
+            .stories {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .story-card {
+                min-height: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header class="intro">
+            <p class="eyebrow">Три історії — три різні світи</p>
+            <h1>Обери, що читати</h1>
+            <p>Кожна історія інтерактивна: читай, обирай дії героя та дізнавайся, до чого вони приведуть.</p>
+        </header>
+
+        <section class="stories" aria-label="Інтерактивні історії">
+            <article class="story-card">
+                <p class="story-number">Історія 01</p>
+                <h2>Один неправильний дотик</h2>
+                <p class="genre">Інтерактивний трилер</p>
+                <p class="description">Подорож обертається низкою підозрілих ситуацій: QR-коди, фальшиві пропозиції та ризик втратити гроші. Обирай, кому довіряти, і перевіряй, перш ніж натискати.</p>
+                <a class="read-link" href="index1.html">Читати історію <span aria-hidden="true">→</span></a>
+            </article>
+
+            <article class="story-card">
+                <p class="story-number">Історія 02</p>
+                <h2>Це не я</h2>
+                <p class="genre">Сімейний кібердетектив</p>
+                <p class="description">Тривожне повідомлення ставить під сумнів те, кому можна довіряти. Розбирайся у підроблених повідомленнях, бережи близьких і вирішуй, як діяти далі.</p>
+                <a class="read-link" href="index2.html">Читати історію <span aria-hidden="true">→</span></a>
+            </article>
+
+            <article class="story-card">
+                <p class="story-number">Історія 03</p>
+                <h2>Світло після опівночі</h2>
+                <p class="genre">Інтерактивна художня історія</p>
+                <p class="description">Історія про пам'ять, дружбу й таємниці, які виходять на світло серед ночі. Прислухайся до героїв і обирай, як розкриватимуться події.</p>
+                <a class="read-link" href="index3.html">Читати історію <span aria-hidden="true">→</span></a>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
