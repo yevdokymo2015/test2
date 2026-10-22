@@ -1,0 +1,3725 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Світло після опівночі — інтерактивна історія</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 2.8em;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .chapter-title {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .story-text {
+            line-height: 1.9;
+            color: #333;
+            margin: 25px 0;
+            font-size: 1.15em;
+            text-align: justify;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        .story-text strong {
+            color: #667eea;
+        }
+        
+        .choices {
+            margin-top: 40px;
+        }
+        
+        .choice-button {
+            display: block;
+            width: 100%;
+            padding: 20px 30px;
+            margin: 18px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.15em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Іконка новин */
+        .news-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .news-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7);
+        }
+
+        .news-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 5px 25px rgba(102, 126, 234, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(102, 126, 234, 0.8); }
+        }
+
+        /* Модальне вікно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .close {
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: calc(85vh - 100px);
+            overflow-y: auto;
+        }
+
+        .update-section {
+            margin-bottom: 30px;
+        }
+
+        .update-section h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .update-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .update-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: #51cf66;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .check-icon::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .future-icon {
+            width: 24px;
+            height: 24px;
+            background: #ffd43b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .future-icon::after {
+            content: '⏳';
+            font-size: 14px;
+        }
+
+        .update-text {
+            flex: 1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .update-date {
+            font-size: 0.85em;
+            color: #868e96;
+            margin-top: 5px;
+        }
+
+        .support-modal-content {
+            max-width: 700px;
+        }
+
+        .support-intro {
+            color: #495057;
+            line-height: 1.6;
+            margin: -10px 0 25px;
+        }
+
+        .support-section {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .support-section summary {
+            cursor: pointer;
+            padding: 16px 18px;
+            color: #495057;
+            font-weight: bold;
+            font-size: 1.05em;
+            transition: background 0.2s;
+        }
+
+        .support-section summary:hover {
+            background: #f8f9fa;
+        }
+
+        .support-section[open] summary {
+            color: #667eea;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .support-section-content {
+            padding: 16px 18px;
+            color: #495057;
+            line-height: 1.7;
+        }
+
+        .support-section-content p {
+            margin-bottom: 12px;
+        }
+
+        .support-section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .support-contact-link {
+            display: inline-block;
+            margin: 4px 0 12px;
+            color: #667eea;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .support-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .support-note {
+            color: #868e96;
+            font-size: 0.9em;
+        }
+
+        .choice-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: left 0.5s;
+        }
+        
+        .choice-button:hover::before {
+            left: 100%;
+        }
+        
+        .choice-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .choice-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-weight: bold;
+            border-left: 5px solid #c92a2a;
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-weight: bold;
+            border-left: 5px solid #2b8a3e;
+        }
+        
+        .info {
+            background: linear-gradient(135deg, #74c0fc 0%, #4dabf7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #1971c2;
+        }
+        
+        .message-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .page {
+            display: none !important;
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        .page.active {
+            display: block !important;
+        }
+        
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .stats-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .ending {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .ending-bad {
+            background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+        }
+        
+        .ending-good {
+            background: linear-gradient(135deg, #51cf66 0%, #2b8a3e 100%);
+        }
+        
+        .restart-button {
+            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+            margin-top: 20px;
+        }
+        
+        .emotional-moment {
+            font-style: italic;
+            color: #495057;
+            border-left: 4px solid #adb5bd;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        
+        .time-stamp {
+            color: #868e96;
+            font-size: 0.95em;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .intro-screen {
+            text-align: center;
+        }
+        
+        .intro-screen h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+        }
+        
+        .intro-description {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+            line-height: 1.8;
+            color: #495057;
+        }
+        
+        .start-button {
+            font-size: 1.4em;
+            padding: 25px 50px;
+            margin-top: 30px;
+        }
+
+        /* Меню навігації */
+        .top-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .menu-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5em;
+        }
+        
+        .menu-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Модальне вікно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: #667eea;
+        }
+        
+        .modal-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .setting-group {
+            margin-bottom: 25px;
+        }
+        
+        .setting-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .setting-control select,
+        .setting-control input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .setting-control select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .zoom-value {
+            display: inline-block;
+            margin-left: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        /* Інтерактивна карта сюжету */
+        .story-map {
+            padding: 30px;
+        }
+        
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            overflow: auto;
+        }
+        
+        #storyGraph {
+            width: 100%;
+            min-height: 600px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            background: white;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        
+        .legend-good { background: #51cf66; }
+        .legend-bad { background: #ff6b6b; }
+        .legend-neutral { background: #74c0fc; }
+        .legend-choice { background: #ffd43b; }
+        
+        .map-description {
+            text-align: center;
+            color: #495057;
+            margin: 20px 0;
+            font-size: 1.1em;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        body.dark-theme .map-description {
+            background: #34495e;
+            color: #ecf0f1;
+        }
+        
+        .back-button {
+            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        /* Темна тема */
+        body.dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        body.dark-theme .container {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme h1,
+        body.dark-theme .chapter-title,
+        body.dark-theme .modal-title {
+            color: #74c0fc;
+        }
+        
+        body.dark-theme .story-text,
+        body.dark-theme .subtitle,
+        body.dark-theme .setting-label {
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .intro-description,
+        body.dark-theme .stats,
+        body.dark-theme .message-box,
+        body.dark-theme .map-container {
+            background: #34495e;
+            color: #ecf0f1;
+        }
+        
+        body.dark-theme .modal-content {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        body.dark-theme .support-intro,
+        body.dark-theme .support-section summary,
+        body.dark-theme .support-section-content {
+            color: #ecf0f1;
+        }
+
+        body.dark-theme .support-section {
+            border-color: #4a5f7f;
+        }
+
+        body.dark-theme .support-section summary:hover {
+            background: #34495e;
+        }
+
+        body.dark-theme .support-section[open] summary {
+            color: #74c0fc;
+            border-bottom-color: #4a5f7f;
+        }
+
+        body.dark-theme .support-contact-link {
+            color: #74c0fc;
+        }
+
+        body.dark-theme .support-note {
+            color: #adb5bd;
+        }
+        
+        body.dark-theme .menu-icon {
+            background: #34495e;
+            color: #74c0fc;
+        }
+        
+        body.dark-theme #storyGraph {
+            background: #34495e;
+            border-color: #4a5f7f;
+        }
+        
+        /* Футер */
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(102, 126, 234, 0.2);
+            text-align: center;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .developer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .developer-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .developer-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .version-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+        }
+        
+        .version-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        body.dark-theme .footer {
+            border-top-color: rgba(116, 192, 252, 0.2);
+            color: #adb5bd;
+        }
+        
+        body.dark-theme .version-info {
+            color: #adb5bd;
+        }
+        
+        body.dark-theme .developer-link {
+            color: #74c0fc;
+        }
+        
+        body.dark-theme .developer-link:hover {
+            color: #a5d8ff;
+        }
+        
+        /* Адаптивність для мобільних пристроїв */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 0;
+            }
+            
+            .modal-header {
+                padding: 20px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.4em;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .menu-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+            
+            .update-section h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Меню навігації -->
+    <div class="top-menu">
+        <div class="menu-icon" onclick="openSettings()" title="Налаштування">
+            ⚙️
+        </div>
+        <div class="menu-icon" onclick="openStoryMap()" title="Інтерактивна карта">
+            🗺️
+        </div>
+        <div class="menu-icon" onclick="openSupportModal()" title="Підтримка та довідка">
+            💬
+        </div>
+    </div>
+
+    <!-- Модальне вікно налаштувань -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeSettings()">&times;</span>
+            <h2 class="modal-title">⚙️ Налаштування</h2>
+            
+            <div class="setting-group">
+                <label class="setting-label">🔍 Масштабування</label>
+                <div class="setting-control">
+                    <input type="range" id="zoomSlider" min="80" max="130" value="100" step="10" oninput="changeZoom(this.value)">
+                    <span class="zoom-value" id="zoomValue">100%</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">🎨 Тема</label>
+                <div class="setting-control">
+                    <select id="themeSelect" onchange="changeTheme(this.value)">
+                        <option value="light">☀️ Світла</option>
+                        <option value="dark">🌙 Темна</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">🌍 Мова</label>
+                <div class="setting-control">
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="uk">🇺🇦 Українська</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="pl">🇵🇱 Polski</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">💾 Прогрес</label>
+                <div class="setting-control">
+                    <button class="choice-button" onclick="resetProgress()" style="margin: 0;">
+                        🔄 Скинути прогрес
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно підтримки -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content support-modal-content">
+            <span class="modal-close" onclick="closeSupportModal()">&times;</span>
+            <h2 class="modal-title">💬 Підтримка та довідка</h2>
+            <p class="support-intro">
+                Тут зібрано все необхідне для комфортного користування платформою.
+                Оберіть потрібний підпункт.
+            </p>
+
+            <details class="support-section" open>
+                <summary>📖 Як користуватися платформою</summary>
+                <div class="support-section-content">
+                    <p><strong>1. Розпочніть історію.</strong> Натисніть «Розпочати історію» на головному екрані.</p>
+                    <p><strong>2. Читайте уважно.</strong> Кожна сцена містить ситуацію з цифрового життя та підказки.</p>
+                    <p><strong>3. Обирайте дію.</strong> Ваші рішення змінюють сюжет, рівень безпеки та фінальний результат.</p>
+                    <p><strong>4. Досліджуйте повторно.</strong> Інтерактивна карта допоможе переглянути доступні гілки історії.</p>
+                    <p><strong>5. Налаштуйте досвід.</strong> У меню налаштувань можна змінити тему, масштаб і скинути прогрес.</p>
+                </div>
+            </details>
+
+            <details class="support-section">
+                <summary>🛡️ Про платформу</summary>
+                <div class="support-section-content">
+                    <p><strong>«Світло після опівночі»</strong> — інтерактивна художня історія про пам’ять, дружбу й сміливість перевіряти правду.</p>
+                    <p>Шахрайство з’являється в сюжеті як тіньова лінія: воно допомагає побачити, як легко чужа довіра стає інструментом маніпуляції, але не визначає саму пригоду.</p>
+                    <p>Це художня історія з розгалуженнями, у якій читач сам обирає ім’я героя та його рішення.</p>
+                </div>
+            </details>
+
+            <details class="support-section">
+                <summary>👨‍💻 Автор і контакти</summary>
+                <div class="support-section-content">
+                    <p><strong>Автор і розробник:</strong> Сергій Євдокимов</p>
+                    <p>Поставити запитання, повідомити про помилку або запропонувати покращення можна через сторінку контактів:</p>
+                    <a class="support-contact-link" href="https://sargeras197.github.io/contacts/" target="_blank" rel="noopener noreferrer">
+                        🔗 Відкрити контакти автора
+                    </a>
+                    <p class="support-note">Посилання на соціальні мережі та інші актуальні канали зв’язку доступні на цій сторінці.</p>
+                </div>
+            </details>
+
+            <details class="support-section">
+                <summary>📰 Новини та оновлення</summary>
+                <div class="support-section-content">
+                    <div class="update-section">
+                        <h3 style="color: #51cf66;">✅ Виконано</h3>
+                        <div class="update-item"><div class="check-icon"></div><div class="update-text"><strong>v0.01 — Базова версія платформи</strong><div>Створено першу інтерактивну історію про кібершахрайство, систему вибору, наслідки рішень, візуальні ефекти та адаптивний дизайн.</div><div class="update-date">Від 30.01.2026</div></div></div>
+                        <div class="update-item"><div class="check-icon"></div><div class="update-text"><strong>v0.02 — Історія «Останнє повідомлення»</strong><div>Оновлено сюжет, головного героя та структуру проходження: вступ, три етапи розвитку подій і автоматичний фінал із кількома результатами.</div><div class="update-date">Від 09.10.2026</div></div></div>
+                        <div class="update-item"><div class="check-icon"></div><div class="update-text"><strong>v0.02 — Вкладка «Підтримка та довідка»</strong><div>Додано інструкцію користувача, інформацію про платформу, контакти автора та окремий підпункт із новинами й оновленнями.</div><div class="update-date">Від 09.10.2026</div></div></div>
+                    </div>
+                    <div class="update-section">
+                        <h3 style="color: #ffd43b;">🔜 Заплановано</h3>
+                        <div class="update-item"><div class="future-icon"></div><div class="update-text"><strong>v1.0 — Освітній реліз</strong><div>Додаткові сюжетні лінії про фішинг, соціальну інженерію та безпечне відновлення доступу до акаунтів.</div><div class="update-date">Заплановано від 01.11.2026</div></div></div>
+                        <div class="update-item"><div class="future-icon"></div><div class="update-text"><strong>v1.1 — Вікторини та прогрес</strong><div>Короткі вікторини після ключових сцен, підсумки за розділами, система досягнень і детальніша статистика проходження.</div><div class="update-date">Заплановано від 01.12.2026</div></div></div>
+                        <div class="update-item"><div class="future-icon"></div><div class="update-text"><strong>v1.2 — Мультимедійне оновлення</strong><div>Аудіосупровід, озвучення персонажів і додаткові ілюстрації для важливих сюжетних моментів.</div><div class="update-date">Заплановано від 15.01.2027</div></div></div>
+                        <div class="update-item"><div class="future-icon"></div><div class="update-text"><strong>v2.0 — Розширення платформи</strong><div>Нові тематичні історії, покращена карта розгалужень і можливість спільного проходження окремих сюжетних ліній.</div><div class="update-date">Заплановано від 01.03.2027</div></div></div>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Вступний екран -->
+        <div class="page active intro-screen" id="intro">
+            <h1>Світло після<br>опівночі</h1>
+            <p class="subtitle">Інтерактивна художня історія про пам'ять, дружбу і таємниці</p>
+            
+            <div class="intro-description">
+                <p><strong>Це твоя історія.</strong></p>
+                <p style="margin-top: 15px;">
+                    Ти отримуєш дивне голосове повідомлення від Софії — подруги, яка зникла з міста три роки тому.
+                    Вона просить зустрітися біля старого кінотеатру «Маяк» до світанку.
+                    На кону — плівка, яка може врятувати будівлю від знесення.
+                </p>
+                <p style="margin-top: 15px;">
+                    <strong>Кожне твоє рішення має значення.</strong> Ти обиратимеш, кому довіряти,
+                    що залишити в темряві та чи ризикнути заради правди.
+                </p>
+                <p style="margin-top: 15px;">
+                    На тлі цієї пригоди хтось намагається виманити гроші в мешканців міста
+                    під виглядом збору на реставрацію кінотеатру. Але це лише тіньова лінія
+                    історії — головне тут те, що станеться між тобою і Софією.
+                </p>
+                <p style="margin-top: 20px; text-align: center; font-style: italic; color: #667eea;">
+                    Марк уже чує, як за вікном прокидається нічне місто.
+                </p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button start-button" onclick="goToPage('story_intro')">
+                    🚀 Увійти в історію
+                </button>
+            </div>
+            
+            <div class="footer">
+                <div class="footer-content">
+                    <div class="developer-info">
+                        <span>👨‍💻 Розробник:</span>
+                        <a href="https://sargeras197.github.io/contacts/" target="_blank" class="developer-link">
+                            Сергій Євдокимов
+                        </a>
+                    </div>
+                    <div class="version-info">
+                        <span>📌</span>
+                        <span class="version-badge">v. 0.02</span>
+                        <span>від 09.10.2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нова історія: «Останнє повідомлення» -->
+        <div class="page" id="story_intro">
+            <h2 class="chapter-title">Вступ. Повідомлення о 22:47</h2>
+            <div class="time-stamp">⏰ 22:47</div>
+            <div class="story-text">
+                <p>Марко повернувся додому після важкого дня. На телефоні з'явилося повідомлення нібито від банку: його рахунок тимчасово заблоковано, а для відновлення доступу потрібно перейти за посиланням.</p>
+                <p>Майже одночасно написала подруга Софія: вона терміново потребувала грошей і просила нікому про це не розповідати.</p>
+                <p><strong>Обидва повідомлення здаються справжніми. У Марка є лише кілька хвилин.</strong></p>
+            </div>
+            <div class="message-box">
+                <strong>🏦 Банк:</strong> «Виявлено підозрілу активність. Підтвердьте особу за посиланням...»<br><br>
+                <strong>💬 Софія:</strong> «Марку, дуже терміново. Позич, будь ласка, 2 000 грн. Я все поясню потім».
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage1_bank', {id: 'stage1_bank_link', type: 'risky', points: 15, consequence: {text: 'Марко відкрив підозріле посилання', severity: 'high'}})">🔗 Перейти за банківським посиланням</button>
+                <button class="choice-button" onclick="goToPage('story_stage1_bank', {id: 'stage1_bank_verify', type: 'safe', points: 15})">📞 Ігнорувати повідомлення та зателефонувати до банку за офіційним номером</button>
+                <button class="choice-button" onclick="goToPage('story_stage1_friend', {id: 'stage1_friend_check', type: 'safe', points: 10})">👨‍💻 Показати повідомлення старшому братові, який розуміється на комп'ютерах</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage1_bank">
+            <h2 class="chapter-title">Етап 1. Перше рішення</h2>
+            <div class="time-stamp">⏰ 22:52</div>
+            <div class="story-text">
+                <p>Марко перевіряє банківське повідомлення. Деталі виглядають переконливо, але адреса сайту відрізняється від офіційної лише одним символом.</p>
+                <p>У цей момент Софія надсилає ще одне повідомлення: «Ти зі мною? Не дзвони, просто перекинь гроші».</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage2_1', {id: 'stage2_bank_data', type: 'risky', points: 18, consequence: {text: 'Дані могли потрапити до шахраїв', severity: 'high'}})">🔐 Ввести дані для «відновлення доступу»</button>
+                <button class="choice-button" onclick="goToPage('story_stage2_2', {id: 'stage2_bank_official', type: 'safe', points: 18})">✅ Завершити дію та перевірити інформацію в офіційному застосунку</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage1_friend">
+            <h2 class="chapter-title">Етап 1. Перше рішення</h2>
+            <div class="time-stamp">⏰ 22:52</div>
+            <div class="story-text">
+                <p>Брат одразу помічає: Софія зазвичай не просить приховувати розмову і не пише з таким незвичним стилем.</p>
+                <p>«Не поспішай. Спочатку переконайся, що це справді вона», — каже він.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage2_3', {id: 'stage2_friend_transfer', type: 'risky', points: 15, moneyChange: -2000, consequence: {text: 'Переказ грошей шахраю', severity: 'high'}})">💸 Негайно переказати гроші</button>
+                <button class="choice-button" onclick="goToPage('story_stage2_4', {id: 'stage2_friend_call', type: 'safe', points: 18})">📞 Зателефонувати Софії особисто</button>
+                <button class="choice-button" onclick="goToPage('story_stage2_5', {id: 'stage2_friend_social', type: 'risky', points: 8})">💬 Написати їй у соціальній мережі</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage2_1">
+            <h2 class="chapter-title">Етап 2. Наслідки рішення</h2>
+            <div class="story-text">
+                <p>Сторінка просить код із SMS. Марко вагається: банк ніколи не просив його повідомляти такі коди.</p>
+                <p>На екрані з'являється таймер. Тиск зростає.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage3_careful', {id: 'stage3_stop', type: 'safe', points: 20})">🛑 Зупинитися, закрити сторінку та змінити пароль через офіційний застосунок</button>
+                <button class="choice-button" onclick="goToPage('story_stage3_risk', {id: 'stage3_code', type: 'risky', points: 20, consequence: {text: 'Передано код підтвердження', severity: 'high'}})">📩 Ввести код, щоб швидше повернути доступ</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage2_2">
+            <h2 class="chapter-title">Етап 2. Наслідки рішення</h2>
+            <div class="story-text">
+                <p>Офіційний застосунок показує: блокування немає. Повідомлення було підробленим.</p>
+                <p>Марко зберігає скриншот і думає, чи варто попередити інших.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage3_investigate', {id: 'stage3_report', type: 'safe', points: 20})">🔎 Перевірити адресу, поскаржитися та зберегти докази</button>
+                <button class="choice-button" onclick="goToPage('story_stage3_careful', {id: 'stage3_ignore', type: 'safe', points: 12})">🗑️ Видалити повідомлення та просто забути про нього</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage2_3">
+            <h2 class="chapter-title">Етап 2. Наслідки рішення</h2>
+            <div class="story-text">
+                <p>Переказ виконано. Софія не відповідає, а за кілька хвилин її справжній номер телефонує Маркові.</p>
+                <p>Вона нічого не просила. Її акаунт зламали.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage3_investigate', {id: 'stage3_help_friend', type: 'safe', points: 18})">🧭 Допомогти Софії відновити акаунт і зафіксувати шахрайство</button>
+                <button class="choice-button" onclick="goToPage('story_stage3_risk', {id: 'stage3_hide_mistake', type: 'risky', points: 15})">🤐 Приховати помилку й нічого не робити</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage2_4">
+            <h2 class="chapter-title">Етап 2. Наслідки рішення</h2>
+            <div class="story-text">
+                <p>Софія відповідає на дзвінок і дивується: вона не писала жодних повідомлень. Разом вони бачать, що її акаунт відкрито на невідомому пристрої.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage3_investigate', {id: 'stage3_joint_help', type: 'safe', points: 22})">🛡️ Разом змінити пароль, завершити чужі сесії та попередити друзів</button>
+                <button class="choice-button" onclick="goToPage('story_stage3_careful', {id: 'stage3_wait', type: 'risky', points: 8})">⏳ Почекати до ранку, не втручаючись</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage2_5">
+            <h2 class="chapter-title">Етап 2. Наслідки рішення</h2>
+            <div class="story-text">
+                <p>У соціальній мережі Софія також відповідає, але її профіль раптово надсилає Маркові посилання «для підтвердження переказу».</p>
+                <p>Тепер підозра очевидна: хтось веде розмову від її імені.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('story_stage3_investigate', {id: 'stage3_social_report', type: 'safe', points: 16})">📋 Зберегти докази та повідомити підтримку платформи</button>
+                <button class="choice-button" onclick="goToPage('story_stage3_risk', {id: 'stage3_social_link', type: 'risky', points: 16})">🔗 Перейти за посиланням, щоб «розібратися»</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage3_careful">
+            <h2 class="chapter-title">Етап 3. Загострення подій</h2>
+            <div class="story-text">
+                <p>Вночі Марко отримує ще два повідомлення з різних номерів. Шахраї вже знають, що він реагує на тему банку.</p>
+                <p>Цього разу він не діє сам: перевіряє факти, блокує контакти й звертається до фахівців.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="finishStory({id: 'final_careful', type: 'safe', points: 15})">🛡️ Звернутися до банку та кіберполіції через офіційні канали</button>
+                <button class="choice-button" onclick="finishStory({id: 'final_late', type: 'risky', points: 5})">🔕 Заблокувати номери, але не повідомляти про спробу</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage3_risk">
+            <h2 class="chapter-title">Етап 3. Загострення подій</h2>
+            <div class="story-text">
+                <p>Після необережного кроку з'являються нові спроби входу. Марко розуміє, що шахраї розраховують на його сором і поспіх.</p>
+                <p>Тепер потрібно вирішити: приховувати помилку чи попросити допомоги.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="finishStory({id: 'final_recovery', type: 'safe', points: 18})">🆘 Розповісти правду, заблокувати доступ і почати відновлення</button>
+                <button class="choice-button" onclick="finishStory({id: 'final_loss', type: 'risky', points: 12})">🙈 Нічого не змінювати, сподіваючись, що все минеться</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_stage3_investigate">
+            <h2 class="chapter-title">Етап 3. Загострення подій</h2>
+            <div class="story-text">
+                <p>Зібрані докази показують: одна й та сама схема використовується проти кількох людей. Марко може просто закрити чат або допомогти зупинити ланцюг.</p>
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="finishStory({id: 'final_helper', type: 'safe', points: 22})">🤝 Передати докази фахівцям і попередити знайомих</button>
+                <button class="choice-button" onclick="finishStory({id: 'final_private', type: 'safe', points: 10})">🔒 Захистити лише власні акаунти й не втручатися</button>
+            </div>
+        </div>
+
+        <div class="page" id="story_final">
+            <h2 class="chapter-title">Фінал. Наслідки рішень</h2>
+            <div class="time-stamp">⏰ Наступного ранку</div>
+            <div class="ending" id="storyFinalText"></div>
+            <div class="stats">
+                <div class="stats-title">Твій шлях</div>
+                Безпечні рішення: <span id="newSafetyScore"></span><br>
+                Ризикові рішення: <span id="newRiskScore"></span><br>
+                Збережено коштів: <span id="newMoney"></span> грн
+            </div>
+            <div class="choices">
+                <button class="choice-button" onclick="openStoryMap()">🗺️ Відкрити карту історії</button>
+                <button class="choice-button secondary" onclick="resetProgress()">🔄 Пройти історію ще раз</button>
+            </div>
+        </div>
+
+        <!-- Стара версія сюжету збережена для сумісності з попередніми станами -->
+        <!-- Сцена 1: Атмосферний вступ — збір речей -->
+        <div class="page" id="scene1_packing">
+            <h2 class="chapter-title">Сцена 1. Збір речей</h2>
+            <div class="time-stamp">⏰ 06:30, Харків</div>
+            <div class="story-text">
+                <p>У кімнаті напівтемрява, вікна заклеєні скотчем. Олег гарячково кидає речі у валізу. Це момент емоційної напруги. Ти маєш обрати, що саме взяти з собою — місця обмаль.</p>
+                <p><strong>Обери 4 речі зі списку:</strong></p>
+            </div>
+            <form id="scene1PackingForm" class="story-text" style="margin-bottom: 30px;">
+                <label><input type="checkbox" name="item" value="Паспорт, диплом, документи на квартиру"> 📁 Папка з документами (паспорт, диплом, документи на квартиру)</label><br>
+                <label><input type="checkbox" name="item" value="Зарядні пристрої та павербанк"> 🔌 Зарядні пристрої та павербанк</label><br>
+                <label><input type="checkbox" name="item" value="Старий фотоальбом"> 📷 Старий фотоальбом</label><br>
+                <label><input type="checkbox" name="item" value="Теплий одяг"> 🧥 Теплий одяг</label><br>
+                <label><input type="checkbox" name="item" value="Готівка"> 💵 Готівка</label><br>
+                <label><input type="checkbox" name="item" value="Аптечка"> 💊 Аптечка</label><br>
+                <label><input type="checkbox" name="item" value="Їжа на дорогу"> 🍎 Їжа на дорогу</label><br>
+                <div id="scene1PackingWarning" style="color:#c92a2a; margin-top:10px; display:none;"></div>
+            </form>
+            <div class="choices">
+                <button class="choice-button" id="scene1PackingNextBtn" onclick="submitScene1Packing(event)">Взяти речі і йти</button>
+            </div>
+        </div>
+
+        <!-- Результат збору виці -->
+        <div class="page" id="scene1_packing_result">
+            <h2 class="chapter-title">Валіза зібрана</h2>
+            <div class="story-text" id="scene1PackingSummary"></div>
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page1')">➡️ Продовжити</button>
+            </div>
+        </div>
+
+        <!-- Розділ 1: День, коли все змінилось -->
+        
+        <!-- Сторінка 1: Початок -->
+        <div class="page" id="page1">
+            <h2 class="chapter-title">Розділ 1. День, коли все змінилось</h2>
+            
+            <div class="time-stamp">⏰ Середа, 08:47 ранку</div>
+            
+            <div class="story-text">
+                <p><strong>Олег прокидається від вібрації телефону.</strong></p>
+                
+                <p>Не від будильника — від повідомлення. Він ще не встиг розплющити очі, а рука вже тягнеться до екрану. Звичка.</p>
+                
+                <p>Повідомлення від мами: <em>"Синку, я домовилася з тітою Світою. Можеш жити у неї, поки не знайдеш щось своє. Їдь сьогодні, якщо можеш. Дзвони, коли приїдеш."</em></p>
+                
+                <p>Олег сідає на ліжку. За вікном сіре небо Харкова. Він дивиться на розкидані речі, на напівпусту кімнату, на валізу в кутку. Вона там уже третій день.</p>
+            </div>
+            
+            <div class="emotional-moment">
+                "Все сталося так швидко. Місяць тому він ще будував плани на літо, а тепер — пакує життя у дві сумки."
+            </div>
+            
+            <div class="story-text">
+                <p>Причини не важливі. Може, робота згоріла. Може, орендар вигнав. Може, просто назріло. Олег не хоче про це думати. Головне — треба їхати. Сьогодні.</p>
+                
+                <p>Він дивиться на телефон. Батарея — 34%. Інтернет — 4G. Час — 08:52.</p>
+                
+                <p><strong>Треба діяти.</strong></p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page1_1', {id: 'check_balance', type: 'safe', points: 5})">
+                    📱 Перевірити баланс карти та купити квиток онлайн
+                </button>
+                <button class="choice-button" id="packFirstChoiceBtn" onclick="goToPage('scene1_packing', {id: 'pack_first', type: 'safe', points: 5})">
+                    🎒 Спочатку зібрати речі, а потім вирішувати з дорогою
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_3', {id: 'think_coffee', type: 'safe', points: 5})">
+                    ☕ Заварити каву і спокійно все обдумати
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.1: Перевірка балансу -->
+        <div class="page" id="page1_1">
+            <h2 class="chapter-title">Розділ 1. День, коли все змінилось</h2>
+            <div class="time-stamp">⏰ 08:55</div>
+            
+            <div class="story-text">
+                <p>Олег відкриває додаток банку. Пароль. Face ID. Екран завантажується.</p>
+                <p><strong>Баланс: 4 850 грн</strong></p>
+                <p>Не густо, але на квиток і перші дні вистачить. Головне — не витрачати зайвого.</p>
+                
+                <p style="margin-top: 20px;">Він відкриває сайт "Укрзалізниці", шукає рейс <em>Харків → Київ</em>. Є місця на 14:30. Плацкарт — 420 грн. Купе — 680 грн.</p>
+                
+                <p>Олег вагається. У плацкарті буде галасливо, але дешевше. У купе — комфортніше, але чи варто переплачувати?</p>
+                
+                <p>Раптом телефон вібрує. Нове повідомлення в Telegram:</p>
+            </div>
+            
+            <div class="message-box">
+                <strong>📩 Telegram-бот "Укрзалізниця | Квитки Онлайн"</strong><br><br>
+                "🎉 Вітаємо! Ви отримали промокод на знижку 30% на всі квитки!<br>
+                Для активації введіть код: <strong>UZ2024SPRING</strong><br>
+                Або перейдіть за посиланням: uz-promo-kvytky.com.ua"
+            </div>
+            
+            <div class="story-text">
+                <p>Олег дивиться на повідомлення. Знижка 30% — це майже 200 гривень економії. Можна було б взяти купе за ціною плацкарту...</p>
+                
+                <p>Але щось насторожує. Він не підписувався на такі бoti. І домен якийсь дивний.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page1_1a', {id: 'click_phishing', type: 'risky', points: 15, moneyChange: -4850, consequence: {text: 'Втрата всіх грошей', severity: 'high'}})">
+                    🔗 Перейти за посиланням — знижка є знижка
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_1b', {id: 'check_link', type: 'safe', points: 15})">
+                    🔍 Перевірити посилання перед переходом
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_1c', {id: 'ignore_link', type: 'safe', points: 20})">
+                    🚫 Ігнорувати і купити на офіційному сайті
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.2: Збирання речей -->
+        <div class="page" id="page1_2">
+            <h2 class="chapter-title">Розділ 1. День, коли все змінилось</h2>
+            <div class="time-stamp">⏰ 09:15</div>
+            
+            <div class="story-text">
+                <p>Олег вирішує не квапитися. Спочатку — речі, потім усе інше.</p>
+                
+                <p>Він відкриває валізу і починає пакувати: одяг, зарядки, документи, ноутбук, навушники. Все найнеобхідніше.</p>
+                
+                <p>На столі лежить старий зовнішній жорсткий диск. 1 терабайт. Там фотографії, дипломна робота, якісь проєкти. Олег не відкривав його місяців зо два.</p>
+            </div>
+            
+            <div class="emotional-moment">
+                "Взяти його чи ні? Важить небагато, але чи потрібен він зараз? А може, там щось важливе?"
+            </div>
+            
+            <div class="story-text">
+                <p>Олег крутить диск у руках. Раптом телефон дзвонить. Невідомий номер. +380 44 XXX-XX-XX. Київський код.</p>
+                
+                <p>Він дивиться на екран. Зазвичай такі номери — спам або якісь менеджери. Але може, це тітя Світа? Вона ж у Києві.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page1_2a', {id: 'answer_call', type: 'risky', points: 5})">
+                    📞 Відповісти на дзвінок
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_2b', {id: 'ignore_call', type: 'safe', points: 10})">
+                    ❌ Скинути і продовжити пакування
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_2c', {id: 'sms_reply', type: 'safe', points: 5})">
+                    💬 Скинути, але відправити SMS: "Хто це?"
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.3: Кава і роздуми -->
+        <div class="page" id="page1_3">
+            <h2 class="chapter-title">Розділ 1. День, коли все змінилось</h2>
+            <div class="time-stamp">⏰ 09:20</div>
+            
+            <div class="story-text">
+                <p>Олег іде на кухню. Турка, кава, вода. Ритуал, який заспокоює.</p>
+                
+                <p>Поки закипає вода, він сідає за стіл і відкриває ноутбук. Остання перевірка перед від'їздом.</p>
+                
+                <p>Email — 23 непрочитаних. Instagram — 7 повідомлень. Telegram — 15 чатів. Усе як завжди.</p>
+                
+                <p>Він відкриває пошту. Серед листів один привертає увагу:</p>
+            </div>
+            
+            <div class="message-box">
+                <strong>📧 Від: "Nova Poshta Служба Підтримки"</strong><br>
+                <strong>Тема: Важливо! Посилка очікує на вас</strong><br><br>
+                "Шановний клієнте!<br><br>
+                На ваше ім'я надійшла посилка. Через несплату зберігання вона буде повернута відправнику через 24 години.<br><br>
+                Для оплати зберігання (89 грн) перейдіть за посиланням:<br>
+                <span style="color: #667eea;">novaposhta-oplata-posylky.info</span><br><br>
+                Трек-номер: 59000XXXXXXXX123"
+            </div>
+            
+            <div class="story-text">
+                <p>Олег хмуриться. Він не чекає ніякої посилки. Але... може, мама щось надіслала? Або друзі на прощання?</p>
+                
+                <p>Запах кави наповнює кухню. Вода закипіла.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page1_3a', {id: 'click_fake_package', type: 'risky', points: 10, moneyChange: -500, consequence: {text: 'Спроба фішингу', severity: 'medium'}})">
+                    🔗 Перейти за посиланням і перевірити трек-номер
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_3b', {id: 'check_official_app', type: 'safe', points: 15})">
+                    📱 Зайти в офіційний додаток Нової Пошти
+                </button>
+                <button class="choice-button" onclick="goToPage('page1_3c', {id: 'delete_spam', type: 'safe', points: 20})">
+                    🗑️ Видалити лист як спам — не чекаю посилок
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.1a: Перехід за фішинговою ссилкою -->
+        <div class="page" id="page1_1a">
+            <h2 class="chapter-title">Розділ 1. Критична помилка</h2>
+            <div class="time-stamp">⏰ 09:02</div>
+            
+            <div class="story-text">
+                <p>Олег натискає на посилання. Сторінка завантажується. Дизайн схожий на офіційний сайт УЗ — ті самі кольори, логотип, меню.</p>
+                
+                <p>Сайт просить ввести дані для бронювання:</p>
+                <ul style="margin-left: 30px; margin-top: 10px;">
+                    <li>ПІБ</li>
+                    <li>Номер телефону</li>
+                    <li>Дані банківської карти</li>
+                    <li>CVV-код</li>
+                </ul>
+                
+                <p style="margin-top: 15px;">Олег починає заповнювати форму. Імейл, телефон, номер карти...</p>
+            </div>
+            
+            <div class="warning">
+                ⚠️ УВАГА! Ви на фішинговому сайті. Справжній домен Укрзалізниці — uz.gov.ua, а не uz-promo-kvytky.com.ua
+            </div>
+            
+            <div class="story-text">
+                <p>Але Олег цього не помічає. Він вводить дані карти: 5168 7574 XXXX XXXX. CVV: 341.</p>
+                
+                <p>Приходить SMS: "Код підтвердження: 3847"</p>
+                
+                <p>Олег вводить код і натискає "Оплатити".</p>
+                
+                <p>Сторінка зависає... потім показує помилку: "Щось пішло не так. Спробуйте пізніше."</p>
+                
+                <p><strong>Через 30 секунд:</strong></p>
+            </div>
+            
+            <div class="warning">
+                💸 SMS від банку:<br>
+                "Списання: 4 850 грн<br>
+                Баланс: 0 грн"
+            </div>
+            
+            <div class="story-text">
+                <p>Серце калатає. Олег дивиться на екран у ступорі. Усе. Всі гроші.</p>
+                
+                <p>Він відкриває додаток банку — дійсно, баланс нульовий. Телефонує в банк, але там кажуть: "Ви самі ввели код підтвердження. Це була ваша добровільна операція."</p>
+                
+                <p>Поліція безсила — шахраї працювали з-за кордону.</p>
+            </div>
+            
+            <div class="emotional-moment">
+                "Панічна атака накочує хвилями. Руки тремтять. Як тепер їхати? Як жити в Києві без грошей? Мама... Треба їй дзвонити. Просити допомоги. Це так соромно."
+            </div>
+            
+            <div class="story-text">
+                <p><strong>Але здаватися не можна.</strong></p>
+                
+                <p>Олег дзвонить мамі. Вона плаче, але каже, що перекаже 3000 гривень — все, що може зараз. Тітя Світа теж обіцяє допомогти.</p>
+                
+                <p>Через годину на рахунку з'являються гроші. Не багато, але достатньо, щоб купити квиток і продовжити подорож.</p>
+                
+                <p>Олег купує найдешевший квиток на автобус (180 грн) та їде далі. Але тепер він знає: одна помилка може коштувати всього.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stats-title">Що пішло не так:</div>
+                ❌ Перейшов за підозрілим посиланням<br>
+                ❌ Не перевірив домен сайту<br>
+                ❌ Ввів дані картки на фішинговому сайті<br>
+                ❌ Ввів код з SMS (НІКОЛИ не вводьте коди на сайтах!)<br><br>
+                
+                <strong style="color: #c92a2a;">Наслідок:</strong><br>
+                💰 Втрачено 4 850 грн<br>
+                📞 Довелося просити допомоги<br>
+                😔 Емоційна травма<br>
+                ⚠️ Подорож ускладнилася
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_after_loss', type: 'safe', points: 5})">
+                    ➡️ Продовжити подорож (залишок: 3000 грн)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.1b: Перевірка посилання -->
+        <div class="page" id="page1_1b">
+            <h2 class="chapter-title">Розділ 1. Обережність рятує</h2>
+            <div class="time-stamp">⏰ 09:05</div>
+            
+            <div class="story-text">
+                <p>Олег утримує палець над посиланням і дивиться уважніше:</p>
+                <p style="color: red; font-weight: bold; margin-left: 20px;">uz-promo-kvytky.com.ua</p>
+                <p>Потім відкриває Google і вводить "укрзалізниця офіційний сайт":</p>
+                <p style="color: green; font-weight: bold; margin-left: 20px;">booking.uz.gov.ua</p>
+            </div>
+            
+            <div class="success">
+                ✅ ПРАВИЛЬНО! Домени не збігаються. Це фішинг!<br><br>
+                <strong>Як розпізнати фішинг:</strong><br>
+                🔍 Перевіряйте домен (gov.ua, а не .com.ua)<br>
+                🔍 Шукайте помилки в адресі (uzа замість uza)<br>
+                🔍 Занадто вигідна пропозиція = підозра
+            </div>
+            
+            <div class="story-text">
+                <p>Олег видаляє повідомлення і блокує бот. Потім заходить на офіційний сайт УЗ через Google.</p>
+                
+                <p>Квиток у плацкарт коштує 420 грн. Без знижок, але безпечно. Олег купує квиток на 14:30.</p>
+                
+                <p><strong>✅ Квиток куплено. Баланс: 4 430 грн.</strong></p>
+                
+                <p>Тепер треба зібратися. До поїзда 5 годин.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_safe', type: 'safe', points: 5, moneyChange: -420})">
+                    ➡️ Продовжити історію (Баланс: 4 430 грн)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.1c: Офіційний сайт -->
+        <div class="page" id="page1_1c">
+            <h2 class="chapter-title">Розділ 1. Розумний вибір</h2>
+            <div class="time-stamp">⏰ 09:06</div>
+            
+            <div class="story-text">
+                <p>Олег інтуїтивно відчуває небезпеку. Він закриває Telegram і заходить безпосередньо на офіційний сайт УЗ через закладку в браузері.</p>
+            </div>
+            
+            <div class="success">
+                ✅ ВІДМІННО! Найбезпечніший спосіб — ігнорувати посилання з повідомлень і заходити на сайти через закладки або пошук Google.
+            </div>
+            
+            <div class="story-text">
+                <p>Офіційна ціна — 420 грн за плацкарт. Олег купує квиток на 14:30. Швидко, безпечно, без ризиків.</p>
+                
+                <p><strong>✅ Квиток куплено. Баланс: 4 430 грн.</strong></p>
+                
+                <p>Олег дивиться на годинник. 09:10. Є час зібратися, поснідати, перевірити важливі речі.</p>
+                
+                <p>Він повертається до пакування. На столі лежить ноутбук — робочий інструмент. У нього там проєкти, документи, паролі в браузері...</p>
+            </div>
+            
+            <div class="emotional-moment">
+                "Варто перевірити, чи все збережено в хмарі? А паролі? Давно не робив резервну копію."
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_safest', type: 'safe', points: 5, moneyChange: -420})">
+                    ➡️ Продовжити історію (Баланс: 4 430 грн)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 2: Дзвінок про "повернення коштів" -->
+        <div class="page" id="page2">
+            <h2 class="chapter-title">Розділ 1. Псевдоповернення коштів</h2>
+            <div class="time-stamp">⏰ 10:30</div>
+            
+            <div class="story-text">
+                <p>Олег методично пакує речі. Валіза майже повна: одяг, техніка, документи.</p>
+                <p id="page2TicketContext"></p>
+            </div>
+            
+            <div class="emotional-moment">
+                "Невже пощастило? Чи це ще одна пастка?"
+            </div>
+            
+            <div class="story-text">
+                <p>Телефон дзвонить. Невідомий номер: +380 44 555-33-77.</p>
+
+                <p style="margin-left: 20px; font-style: italic;">"Доброго дня, служба підтримки платежів. Під час купівлі вашого квитка зафіксовано дубль-операцію. Щоб скасувати зайве списання, продиктуйте дані картки та код із SMS".</p>
+
+                <p>Олег пам'ятає: шахраї часто грають на емоціях, поспіху та жадібності.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2_1', {id: 'share_card_for_refund', type: 'risky', points: 15, moneyChange: -2000, consequence: {text: 'Передав дані картки шахраям', severity: 'high'}})">
+                    💳 Продиктувати дані картки для "повернення"
+                </button>
+                <button class="choice-button" onclick="goToPage('page2_2', {id: 'ask_official_proof', type: 'safe', points: 12})">
+                    🧾 Попросити номер заявки і сказати, що передзвоните самі
+                </button>
+                <button class="choice-button" onclick="goToPage('page2_3', {id: 'hangup_check_official', type: 'safe', points: 15})">
+                    🚫 Скинути дзвінок і перевірити платіж в офіційному додатку банку
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.2a: Відповісти на дзвінок -->
+        <div class="page" id="page1_2a">
+            <h2 class="chapter-title">Розділ 1. Збирання речей</h2>
+            <div class="time-stamp">⏰ 09:18</div>
+            
+            <div class="story-text">
+                <p>Олег піднімає слухавку.</p>
+                <p style="margin-left: 20px; font-style: italic;">"Алло? Це Олег?"</p>
+                <p>"Так, це я."</p>
+                <p style="margin-left: 20px; font-style: italic;">"Вітаю! Це агентство з оренди житла 'Київські Квартири'. Ми бачимо, що ви шукаєте житло в Києві. Хочемо запропонувати вигідні варіанти..."</p>
+                
+                <p>Олег здивований. Він ще нічого не шукав — тільки-но збирається виїхати.</p>
+                
+                <p>"Як ви отримали мій номер?"</p>
+                <p style="margin-left: 20px; font-style: italic;">"Ви залишали заявку на нашому сайті... Ні? Можливо, хтось із ваших знайомих..."</p>
+                
+                <p>Олег відчуває дискомфорт. Він кладе трубку.</p>
+            </div>
+            
+            <div class="info">
+                ℹ️ <strong>Підозрілий дзвінок:</strong><br>
+                Невідомо, як вони отримали номер. Можливо, база даних злилася. Можливо, хтось продав контакти. В будь-якому разі, краще не довіряти таким дзвінкам.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_packing', type: 'safe', points: 5})">
+                    ➡️ Продовжити пакування
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.2b: Скинути дзвінок -->
+        <div class="page" id="page1_2b">
+            <h2 class="chapter-title">Розділ 1. Обережність</h2>
+            <div class="time-stamp">⏰ 09:16</div>
+            
+            <div class="story-text">
+                <p>Олег скидає дзвінок. Невідомий номер — скоріше за все, спам або реклама.</p>
+                <p>Через хвилину приходить SMS від того ж номера:</p>
+            </div>
+            
+            <div class="message-box">
+                "Доброго дня! Ми з агентства нерухомості. Маємо для вас вигідну пропозицію. Перезвоніть: +380 44 555-33-77"
+            </div>
+            
+            <div class="story-text">
+                <p>Олег видаляє повідомлення і блокує номер. Продовжує пакування.</p>
+            </div>
+            
+            <div class="success">
+                ✅ <strong>Правильно!</strong><br>
+                Не відповідати на невідомі дзвінки — хороша практика. Якщо це важливо — людина передзвонить або напише конкретне повідомлення.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_smart', type: 'safe', points: 5})">
+                    ➡️ Продовжити пакування
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.2c: SMS запит -->
+        <div class="page" id="page1_2c">
+            <h2 class="chapter-title">Розділ 1. Обачність</h2>
+            <div class="time-stamp">⏰ 09:17</div>
+            
+            <div class="story-text">
+                <p>Олег скидає дзвінок і пише SMS: "Хто це?"</p>
+                <p>Відповідь приходить через хвилину:</p>
+            </div>
+            
+            <div class="message-box">
+                "Агентство нерухомості 'Київські Квартири'. Маємо для вас вигідні пропозиції з оренди. Дзвоніть: +380 44 555-33-77"
+            </div>
+            
+            <div class="story-text">
+                <p>Олег хмуриться. Він нічого не шукав. Звідки у них його номер?</p>
+                <p>Він блокує номер і продовжує пакування.</p>
+            </div>
+            
+            <div class="info">
+                ℹ️ <strong>Корисна практика:</strong><br>
+                Запитати "хто це?" перед розмовою — хороша ідея. Але якщо відповідь незрозуміла — краще заблокувати.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_careful', type: 'safe', points: 5})">
+                    ➡️ Продовжити пакування
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.3a: Фейкова посилка -->
+        <div class="page" id="page1_3a">
+            <h2 class="chapter-title">Розділ 1. Ще одна пастка</h2>
+            <div class="time-stamp">⏰ 09:25</div>
+            
+            <div class="story-text">
+                <p>Олег переходить за посиланням. Сайт виглядає офіційно — логотип Нової Пошти, форма оплати.</p>
+                <p>Просять ввести:</p>
+                <ul style="margin-left: 30px;">
+                    <li>Трек-номер (він вже заповнений)</li>
+                    <li>ПІБ</li>
+                    <li>Номер телефону</li>
+                    <li>Дані картки для оплати 89 грн</li>
+                </ul>
+                
+                <p>Олег вводить дані. Оплачує.</p>
+                <p>Приходить SMS: "Списано 500 грн"</p>
+                <p>Ще одне: "Списано 2000 грн"</p>
+            </div>
+            
+            <div class="warning">
+                ⚠️ <strong>ФІШИНГ!</strong><br>
+                Сайт був підробленим. Олег втратив 2500 гривень. Посилки ніколи не було.
+            </div>
+            
+            <div class="story-text">
+                <p>Олег в паніці блокує картку. Дзвонить мамі, просить допомоги. Вона переказує 2000 гривень.</p>
+                <p>Тепер у нього 4 350 грн. Менше, ніж було. І гіркий урок.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_after_scam', type: 'safe', points: 5})">
+                    ➡️ Продовжити подорож (Баланс: 4 350 грн)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.3b: Офіційний додаток -->
+        <div class="page" id="page1_3b">
+            <h2 class="chapter-title">Розділ 1. Розумна перевірка</h2>
+            <div class="time-stamp">⏰ 09:23</div>
+            
+            <div class="story-text">
+                <p>Олег не переходить за посиланням. Натомість відкриває офіційний додаток Нової Пошти на телефоні.</p>
+                <p>Перевіряє свої посилки — нічого нового.</p>
+                <p>Значить, лист був фейком.</p>
+            </div>
+            
+            <div class="success">
+                ✅ <strong>ВІДМІННО!</strong><br>
+                Завжди перевіряйте інформацію через офіційні додатки, а не за посиланнями з листів!
+            </div>
+            
+            <div class="story-text">
+                <p>Олег видаляє лист і блокує відправника. Каву випито, рішення прийняте — час їхати.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_wise', type: 'safe', points: 5})">
+                    ➡️ Продовжити пакування
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 1.3c: Видалити спам -->
+        <div class="page" id="page1_3c">
+            <h2 class="chapter-title">Розділ 1. Інтуїція</h2>
+            <div class="time-stamp">⏰ 09:22</div>
+            
+            <div class="story-text">
+                <p>Олег навіть не замислюється. Він не чекає ніяких посилок — значить, це спам.</p>
+                <p>Видаляє лист і блокує відправника.</p>
+                <p>Допиває каву і повертається до пакування.</p>
+            </div>
+            
+            <div class="success">
+                ✅ <strong>ІДЕАЛЬНО!</strong><br>
+                Якщо ви не чекаєте посилки — будь-які листи про "несплату" є фішингом. Видаляйте без вагань!
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page2', {id: 'continue_perfect', type: 'safe', points: 5})">
+                    ➡️ Продовжити пакування
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 2.1: Повірити у псевдоповернення -->
+        <div class="page" id="page2_1">
+            <h2 class="chapter-title">Розділ 1. Дзвінок</h2>
+            <div class="time-stamp">⏰ 10:35</div>
+            
+            <div class="story-text">
+                <p>Олег диктує номер картки та код із SMS. "Оператор" запевняє, що зараз оформить повернення.</p>
+
+                <p>Замість повернення приходить SMS від банку:</p>
+                <p style="margin-left: 20px;"><strong>"Списано: 2000 грн"</strong></p>
+
+                <p>Номер одразу стає недоступним.</p>
+            </div>
+            
+            <div class="warning">
+                ⚠️ <strong>ШАХРАЙСЬКЕ "ПОВЕРНЕННЯ"!</strong><br>
+                Жодна служба підтримки не просить код із SMS для повернення коштів.
+            </div>
+            
+            <div class="story-text">
+                <p>Олег блокує картку і телефонує в банк, але частину коштів уже втрачено.</p>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page3', {id: 'lost_money_fake_refund', type: 'safe', points: 5})">
+                    ➡️ Продовжити збори (До поїзда 3 години)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 2.2: Попросити підтвердження -->
+        <div class="page" id="page2_2">
+            <h2 class="chapter-title">Розділ 1. Спроба відновлення</h2>
+            <div class="time-stamp">⏰ 10:40</div>
+            
+            <div class="story-text">
+                <p>Олег просить назвати номер заявки, суму дубль-списання та офіційну адресу, з якої надійде підтвердження.</p>
+
+                <p>Співрозмовник починає тиснути: "Треба негайно, інакше гроші зависнуть на 30 днів. Диктуйте код!"</p>
+
+                <p>Олег розуміє, що це маніпуляція, і завершує дзвінок.</p>
+            </div>
+            
+            <div class="success">
+                ✅ <strong>Правильний підхід!</strong><br>
+                Перевірка фактів і відмова діяти під тиском часу зберегли гроші.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page3', {id: 'rejected_fake_refund', type: 'safe', points: 10})">
+                    ➡️ Продовжити збори (До поїзда 2 години 45 хв)
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 2.3: Скинути і перевірити офіційно -->
+        <div class="page" id="page2_3">
+            <h2 class="chapter-title">Розділ 1. Фокус на головному</h2>
+            <div class="time-stamp">⏰ 10:32</div>
+            
+            <div class="story-text">
+                <p>Олег скидає дзвінок, відкриває офіційний додаток УЗ та банк.</p>
+
+                <p>Жодного дубль-списання немає. Це була спроба соціальної інженерії під виглядом "служби підтримки".</p>
+
+                <p>Він блокує номер і завершує збори без втрат.</p>
+            </div>
+            
+            <div class="success">
+                ✅ <strong>ВІДМІННО!</strong><br>
+                Перевірка через офіційні канали ігнорує маніпуляції шахраїв.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page3', {id: 'focused_on_main', type: 'safe', points: 15})">
+                    ➡️ Перейти до підсумку Розділу 1
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 3: Підсумок Розділу 1 -->
+        <div class="page" id="page3">
+            <h2 class="chapter-title">📊 Підсумок Розділу 1</h2>
+            <div class="time-stamp">⏰ Кінець Розділу 1</div>
+            
+            <div class="story-text">
+                <p>Це кінець першого етапу твоєї версії історії Олега. Те, що ти обирав(ла), уже змінило його маршрут.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stats-title">📊 Підсумок Розділу 1</div>
+                💰 Стан гаманця: <span id="walletStatus"></span><br>
+                🧠 Рівень кіберграмотності: <span id="literacyLevel"></span><br>
+                📌 Баланс: <span id="currentMoney"></span> грн<br>
+                ✅ Безпечні рішення: <span id="currentSafetyScore"></span><br>
+                ⚠️ Ризикові рішення: <span id="currentRiskScore"></span>
+            </div>
+
+            <div class="ending">
+                Ти виходиш на вулицю. Перші пастки позаду, але справжня гра на виживання в цифровому просторі тільки починається. Попереду — вокзал.
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page4')">
+                    ➡️ Розпочати Розділ 2. Дорога до нового життя
+                </button>
+            </div>
+            
+            <div class="choices">
+                <button class="choice-button secondary" onclick="goToPage('intro')">
+                    🔄 Почати історію заново
+                </button>
+            </div>
+        </div>
+
+        <!-- Розділ 2: Дорога до нового життя -->
+        <div class="page" id="page4">
+            <h2 class="chapter-title">Розділ 2. Дорога до нового життя</h2>
+            <div class="time-stamp">⏰ 13:45, Вокзал, зал очікування</div>
+
+            <div class="story-text">
+                <p><strong>Початкова сцена:</strong> поїзд подають на 4 колію. У гучномовці оголошення, люди метушаться, у кожного своя паніка.</p>
+                <p>Олег стискає валізу, перевіряє гаманець і розуміє: якщо зараз помилиться, ночівля в Києві може перетворитися на катастрофу.</p>
+                <p>Саме в дорозі шахраї ловлять на двох речах: <strong>поспіх</strong> і <strong>втому</strong>. Попереду - дві сцени, де кожен клік має ціну.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page4_1')">
+                    ➡️ Почати Сцену 1
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page4_1">
+            <h2 class="chapter-title">Сцена 1. Терпіння і контроль</h2>
+            <div class="time-stamp">⏰ 13:49, Зал очікування</div>
+
+            <div class="story-text">
+                <p>На стіні - свіжа наліпка з QR: <em>"Безкоштовний Wi-Fi для пасажирів. Підключення за 10 секунд"</em>.</p>
+                <p>Наклейка перекриває старе оголошення, у тексті помилка, логотип розмитий. Поруч хтось нервово каже: "Скануй швидше, потім не буде інтернету".</p>
+                <p>Олег уже майже наводить камеру, але в голові спрацьовує тривога.</p>
+                <p><strong>Що робити?</strong></p>
+            </div>
+
+            <div class="emotional-moment">
+                "Якщо я зараз піддамся натовпу, то можу втратити більше, ніж кілька хвилин."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page4_3', {id: 'chapter2_qr_scan', type: 'risky', points: 10})">
+                    📷 Сканувати QR і перейти на сторінку підключення
+                </button>
+                <button class="choice-button" onclick="goToPage('page4_4', {id: 'chapter2_qr_check', type: 'safe', points: 15})">
+                    🧭 Перевірити QR: запитати працівника вокзалу та звірити офіційний стенд
+                </button>
+                <button class="choice-button" onclick="goToPage('page5', {id: 'chapter2_qr_ignore', type: 'safe', points: 15})">
+                    🛡️ Ігнорувати QR і одразу перейти на мобільний інтернет
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page4_2">
+            <h2 class="chapter-title">Сцена 2. Наслідок ризикового вибору</h2>
+            <div class="time-stamp">⏰ 14:23, У вагоні</div>
+
+            <div class="warning">
+                ⚠️ Це класична пастка Evil Twin: фейкова мережа перехоплює трафік і може підсунути сторінку входу для крадіжки даних.
+            </div>
+
+            <div class="story-text">
+                <p>Олег обрав мережу <strong>"Ivan_Free"</strong>. На екрані з'являється форма: "Підтвердьте акаунт, щоб продовжити".</p>
+                <p>Він не вводить пароль, але бачить, що сайт оренди раптом відкривається в дивному домені-клоні. Ризик був реальний.</p>
+                <p>Час втрачено, нерви на межі, а довіра до "безкоштовного Wi-Fi" зникає остаточно.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page5_summary', {id: 'chapter2_evil_twin_risky', type: 'risky', points: 10})">
+                    ➡️ До підсумку Розділу 2
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page4_3">
+            <h2 class="chapter-title">Сцена 1. Пастка за QR</h2>
+            <div class="time-stamp">⏰ 13:52, Зал очікування</div>
+
+            <div class="warning">
+                ⚠️ QR-код з випадкової наліпки може вести на підроблену сторінку або до небезпечної точки доступу.
+            </div>
+
+            <div class="story-text">
+                <p>Після сканування відкривається "портал доступу" з полями: номер телефону, пароль пошти і код із SMS.</p>
+                <p>Сторінка тисне таймером: <em>"Залишилось 45 секунд до втрати сесії"</em>. Класична психологічна маніпуляція.</p>
+                <p>Олег вагається: повірити поспіху чи зупинитися?</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Якщо це справжній сервіс, чому він просить пароль від пошти? Це не схоже на нормальну авторизацію."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page4_5', {id: 'chapter2_qr_enter_data', type: 'risky', points: 15, consequence: {text: 'Введення даних у фейковий портал', severity: 'high'}})">
+                    ⏱️ Ввести дані, бо часу мало
+                </button>
+                <button class="choice-button" onclick="goToPage('page4_4', {id: 'chapter2_qr_stop', type: 'safe', points: 18})">
+                    ✋ Закрити сторінку і перевірити інформацію офіційно
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page4_4">
+            <h2 class="chapter-title">Сцена 1. Контроль повернуто</h2>
+            <div class="time-stamp">⏰ 13:56, Платформа</div>
+
+            <div class="success">
+                ✅ Олег перевірив джерело і уникнув пастки ще до введення даних.
+            </div>
+
+            <div class="story-text">
+                <p>Черговий по вокзалу підтверджує: офіційний Wi-Fi не потребує пароля від пошти або соцмереж.</p>
+                <p>Наліпку з QR фотографують для служби безпеки, а Олег сідає у вагон із відчуттям, що перший раунд виграно.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page5')">
+                    ➡️ Перейти до Сцени 2 у вагоні
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page4_5">
+            <h2 class="chapter-title">Сцена 1. Ціна поспіху</h2>
+            <div class="time-stamp">⏰ 13:58, Перед посадкою</div>
+
+            <div class="warning">
+                ⚠️ Небезпечний момент: введені дані могли бути перехоплені шахраями.
+            </div>
+
+            <div class="story-text">
+                <p>Сторінка одразу "падає", а інтернет зникає. Через хвилину приходить лист про вхід у пошту з нового пристрою.</p>
+                <p>Олег швидко змінює пароль і вмикає двофакторну автентифікацію. Гроші поки цілі, але наслідки могли бути значно гірші.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page5')">
+                    ➡️ Перейти до Сцени 2 у вагоні
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page5">
+            <h2 class="chapter-title">Сцена 2. Підозріла мережа у вагоні</h2>
+            <div class="time-stamp">⏰ 14:20</div>
+
+            <div class="story-text">
+                <p>Поїзд рушає. За вікном темніє, а в Олега лишається менше години, щоб знайти житло на першу ніч.</p>
+                <p>У списку Wi-Fi видно дві відкриті мережі: <strong>"Ivan_Free"</strong> та <strong>"FreFreFre"</strong>.</p>
+                <p>Паралельно в Telegram прилітає "гаряча пропозиція": <em>"Квартира біля вокзалу, бронь лише 500 грн до 15:00"</em>.</p>
+                <p>Збіг виглядає дивно, але й правдоподібно: у незнайомому місті такі рішення часто приймають саме в дорозі.</p>
+                <p><strong>Який вибір зробить Олег?</strong></p>
+            </div>
+
+            <div class="emotional-moment">
+                "Можливо, це шанс заощадити час. А можливо - саме той момент, коли помиляються найчастіше."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page4_2', {id: 'chapter2_evil_twin_connect', type: 'risky', points: 12})">
+                    📶 Підключитися до мережі з кращим сигналом і відкрити оголошення
+                </button>
+                <button class="choice-button" onclick="goToPage('page5_3', {id: 'chapter2_evil_twin_frefre', type: 'risky', points: 14, moneyChange: -500, consequence: {text: 'Втрачено бронь через фейкову оренду', severity: 'medium'}})">
+                    ⚡ Написати власнику в Telegram і забронювати, щоб випередити інших
+                </button>
+                <button class="choice-button" onclick="goToPage('page5_2', {id: 'chapter2_evil_twin_avoided', type: 'safe', points: 15})">
+                    🛡️ Перевірити оголошення через мобільний інтернет і не робити передоплату одразу
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page5_2">
+            <h2 class="chapter-title">Сцена 2. Виважене рішення</h2>
+            <div class="time-stamp">⏰ 14:24, У вагоні</div>
+
+            <div class="success">
+                ✅ Олег не підключився до підозрілих мереж і зберіг свої дані.
+            </div>
+
+            <div class="story-text">
+                <p>Він вмикає мобільний інтернет, телефонує власнику через платформу та просить короткий відеопоказ квартири.</p>
+                <p>Оголошення, яке вимагало передоплату "до 15:00", зникає через кілька хвилин - ще один сигнал, що це була шахрайська приманка.</p>
+                <p>Рішення зайняло трохи більше часу, зате без ризику втратити акаунти і гроші.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page5_summary')">
+                    ➡️ До підсумку Розділу 2
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page5_3">
+            <h2 class="chapter-title">Сцена 2. Швидка бронь - швидка втрата</h2>
+            <div class="time-stamp">⏰ 14:27, У вагоні</div>
+
+            <div class="warning">
+                ⚠️ Олег переказав 500 грн "за бронь", після чого контакт зник, а оголошення видалили.
+            </div>
+
+            <div class="story-text">
+                <p>Пошук дешевшого і швидшого варіанту коштував грошей та часу. Шахраї використали знайомий тригер: "тільки зараз".</p>
+                <p>Олег фіксує номер картки отримувача та скаржиться на оголошення в сервісі.</p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page5_summary')">
+                    ➡️ До підсумку Розділу 2
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page5_summary">
+            <h2 class="chapter-title">Підсумок Розділу 2</h2>
+            <div class="time-stamp">⏰ Кінець Розділу 2</div>
+
+            <div class="stats">
+                <div class="stats-title">Підсумок твоєї гілки в Розділі 2</div>
+                <p>• Сцена 1 (QR у залі очікування): поспіх штовхає на ризик, але перевірка рятує від фейкових порталів.</p>
+                <p>• Сцена 2 (Wi-Fi у вагоні): мережі "Ivan_Free" і "FreFreFre" можуть бути шахрайським Evil Twin.</p>
+                <p>• Для пошуку житла в дорозі безпечніше використовувати мобільний інтернет і перевірені сервіси.</p>
+                <p id="chapter2Outcome" style="margin-top: 10px; font-weight: bold;"></p>
+                <p id="chapter2Aftertaste" style="margin-top: 10px; font-style: italic; color: #495057;"></p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page6')">
+                    ➡️ Розпочати Розділ 3. Нове місто
+                </button>
+            </div>
+        </div>
+
+        <!-- Розділ 3: Нове місто -->
+        <div class="page" id="page6">
+            <h2 class="chapter-title">Розділ 3. Нове місто</h2>
+            <div class="time-stamp">⏰ 18:10, Київ, вокзал</div>
+
+            <div class="story-text">
+                <p><strong>Сцена 1. Банкомат на вокзалі</strong></p>
+                <p>Київ зустрічає гулом коліс і сирим повітрям перону. Олег виходить із вагона з відчуттям, що день триває вдвічі довше, ніж мав би.</p>
+                <p>Біля банкомата черга. Хтось попереду нервово озирається, а чоловік поруч занадто уважно стежить за чужими екранами.</p>
+                <p>На мить здається, що це просто втома і підозріливість після важкої дороги. Але час іде.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Якщо зараз застрягну без готівки - втрачений вечір. Якщо поспішу - може бути ще гірше."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page6_1', {id: 'chapter3_atm_rush', type: 'risky', points: 12, moneyChange: -1500, consequence: {text: 'Ймовірний скімінг банкомата', severity: 'high'}})">
+                    💳 Зняти частину грошей тут, щоб не втрачати час
+                </button>
+                <button class="choice-button" onclick="goToPage('page6_2', {id: 'chapter3_atm_safe', type: 'safe', points: 15})">
+                    🛡️ Відійти і пошукати інший банкомат по дорозі
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page6_1">
+            <h2 class="chapter-title">Розділ 3. Сцена 1 — Після вибору</h2>
+            <div class="time-stamp">⏰ 18:18</div>
+
+            <div class="story-text">
+                <p>Гроші видані, чек надрукований, усе ніби нормально. Але за кілька хвилин прилітає дивне push-повідомлення від банку.</p>
+                <p>Олег блокує картку в застосунку просто на ходу. До кінця не ясно, чи це збіг, чи ні - але напруга вже оселилась десь під ребрами.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "У новому місті ти ще не знаєш правил гри. І це лякає найбільше."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page6_2')">
+                    ➡️ До Сцени 2. Таксі
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page6_2">
+            <h2 class="chapter-title">Сцена 2. Таксі</h2>
+            <div class="time-stamp">⏰ 18:25, Площа перед вокзалом</div>
+
+            <div class="story-text">
+                <p>Площа перед вокзалом шумить, у повітрі миготять фари й чужі маршрути. Олег тягнеться до застосунку таксі.</p>
+                <p>До нього підходить водій: "Можу забрати одразу, без очікування. Ціна майже як в додатку".</p>
+                <p>Поки Олег вагається, в чат приходить коротке посилання з підписом: <em>"підтвердження поїздки"</em>.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Після всього за день хочеться просто сісти й доїхати. Без нових перевірок."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page6_3', {id: 'chapter3_taxi_fake', type: 'risky', points: 10, moneyChange: -400, consequence: {text: 'Передоплата шахраю в таксі', severity: 'medium'}})">
+                    🚕 Домовитися напряму і підтвердити поїздку через посилання
+                </button>
+                <button class="choice-button" onclick="goToPage('page6_3', {id: 'chapter3_taxi_app', type: 'safe', points: 15})">
+                    📱 Дочекатися машини з застосунку, навіть якщо довше
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page6_3">
+            <h2 class="chapter-title">Сцена 3. «Ідеальна квартира» (Оренда-пастка)</h2>
+            <div class="time-stamp">⏰ 19:10, Дорога до району</div>
+
+            <div class="story-text">
+                <p>У дорозі Олег гортає оголошення. Одне виглядає майже ідеально: чистий ремонт, близько до метро, ціна нижча за середню.</p>
+                <p>У переписці відповідають швидко, майже занадто швидко. Пишуть, що власник не в місті, але "ключі передадуть після невеликої броні".</p>
+                <p>Через хвилину приходить ще одне повідомлення: <em>"Є інші охочі, дайте відповідь до 19:20"</em>.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Коли ти втомлений, слово 'ідеально' звучить як рятівний круг."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page7', {id: 'chapter3_rent_trap', type: 'risky', points: 15, moneyChange: -2000, consequence: {text: 'Завдаток за фейкову оренду', severity: 'high'}})">
+                    🏠 Зафіксувати варіант зараз, щоб не втратити квартиру
+                </button>
+                <button class="choice-button" onclick="goToPage('page7', {id: 'chapter3_rent_safe', type: 'safe', points: 20})">
+                    🔍 Попросити відеопоказ і перевірити документи перед оплатою
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page7">
+            <h2 class="chapter-title">Підсумок Розділу 3</h2>
+            <div class="time-stamp">⏰ Кінець Розділу 3</div>
+
+            <div class="stats">
+                <div class="stats-title">Підсумок твоєї гілки в Розділі 3</div>
+                <p>• У новому місті Олег вчився довіряти не першому враженню, а дрібним деталям.</p>
+                <p>• Кожне рішення здавалося «майже правильним», поки не з'являлася ціна поспіху.</p>
+                <p id="chapter3Outcome" style="margin-top: 10px; font-weight: bold;"></p>
+            </div>
+
+            <div class="ending" style="font-size: 1.05em; padding: 20px;">
+                Київ прийняв Олега не обіймами, а перевірками. Але саме цього вечора він навчився головному: втома - поганий радник, коли на кону твої гроші і безпека.
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page8')">
+                    ➡️ Розпочати Розділ 4. Адаптація
+                </button>
+            </div>
+        </div>
+
+        <!-- Розділ 4: Адаптація -->
+        <div class="page" id="page8">
+            <h2 class="chapter-title">Розділ 4. Адаптація</h2>
+            <div class="time-stamp">⏰ Наступний день, 10:20</div>
+
+            <div class="story-text">
+                <p><strong>Сцена 1. «Виплати для ВПО» (Фішинг на допомозі)</strong></p>
+                <p>Новий ранок починається з короткого SMS: "Ваш запит на виплати готовий. Підтвердіть дані протягом 30 хвилин".</p>
+                <p>Посилання виглядає майже офіційно, а сума в повідомленні саме така, яку Олег очікував.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Після вчорашнього хочеться нарешті щось просте і хороше. Може, це воно?"
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page8_2', {id: 'chapter4_vpo_phish', type: 'risky', points: 12, consequence: {text: 'Спроба крадіжки персональних даних ВПО', severity: 'high'}})">
+                    🔗 Відкрити посилання і швидко завершити підтвердження
+                </button>
+                <button class="choice-button" onclick="goToPage('page8_2', {id: 'chapter4_vpo_safe', type: 'safe', points: 18})">
+                    ✅ Перевірити статус через звичний держсервіс, без переходу з SMS
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page8_2">
+            <h2 class="chapter-title">Сцена 2. Атака по файлу</h2>
+            <div class="time-stamp">⏰ 12:40</div>
+
+            <div class="story-text">
+                <p>На пошті чекає лист із темою: "Уточнений список виплат". Усередині - вкладення з довгою назвою, схожою на Excel-файл.</p>
+                <p>Відправник знайомий лише наполовину: назва установи ніби правильна, адреса - дивна.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Якщо це справді важливий документ, я втрачаю час. Якщо ні - можу втратити значно більше."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page8_3', {id: 'chapter4_file_attack', type: 'risky', points: 14, consequence: {text: 'Запуск шкідливого файлу', severity: 'high'}})">
+                    📂 Відкрити вкладення і перевірити, що в ньому
+                </button>
+                <button class="choice-button" onclick="goToPage('page8_3', {id: 'chapter4_file_safe', type: 'safe', points: 18})">
+                    🧪 Спочатку перевірити відправника та формат файлу
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page8_3">
+            <h2 class="chapter-title">Сцена 3. Робота-пастка</h2>
+            <div class="time-stamp">⏰ 15:05</div>
+
+            <div class="story-text">
+                <p>У стрічці вакансій з'являється пропозиція: "Віддалена робота з навчанням, старт сьогодні".</p>
+                <p>Менеджер відповідає чемно, швидко і просить лише одне - "активаційний платіж", який потім нібито повернуть з першою виплатою.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Після всіх втрат хочеться нарешті стабільності. І саме це робить пропозицію такою привабливою."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page8_4', {id: 'chapter4_job_trap', type: 'risky', points: 12, moneyChange: -600, consequence: {text: 'Оплата за фейкову вакансію', severity: 'medium'}})">
+                    💸 Погодитися і переказати активаційний платіж
+                </button>
+                <button class="choice-button" onclick="goToPage('page8_4', {id: 'chapter4_job_safe', type: 'safe', points: 16})">
+                    🔍 Попросити договір і перевірити компанію перед стартом
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page8_4">
+            <h2 class="chapter-title">Сцена 4. Допомога від знайомих: Viber/Line-акаунти</h2>
+            <div class="time-stamp">⏰ 18:30</div>
+
+            <div class="story-text">
+                <p>У Viber пише старий знайомий: "Терміново виручи, поверну завтра". Тон ніби його, але стиль повідомлення трохи чужий.</p>
+                <p>Через хвилину в Line приходить схоже прохання від іншого контакту. Два запити підряд виглядають як дивний збіг.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Найскладніше - сумніватися в людях, яких ти знаєш."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page9', {id: 'chapter4_fake_friend_help', type: 'risky', points: 14, moneyChange: -800, consequence: {text: 'Переказ шахраю під виглядом знайомого', severity: 'high'}})">
+                    🤝 Переказати одразу, щоб не підвести знайомого
+                </button>
+                <button class="choice-button" onclick="goToPage('page9', {id: 'chapter4_verify_friend', type: 'safe', points: 20})">
+                    📞 Передзвонити напряму і звірити, чи це справді він
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page9">
+            <h2 class="chapter-title">Підсумок Розділу 4</h2>
+            <div class="time-stamp">⏰ Кінець Розділу 4</div>
+
+            <div class="stats">
+                <div class="stats-title">Підсумок твоєї гілки в Розділі 4</div>
+                <p>• Цього дня Олег стикався не з однією великою пасткою, а з серією дрібних рішень під втому.</p>
+                <p>• Найскладніші вибори ховались там, де все виглядало "майже офіційно" або "майже знайомо".</p>
+                <p id="chapter4Outcome" style="margin-top: 10px; font-weight: bold;"></p>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page10')">
+                    ➡️ Розпочати Розділ 5. Вчитель
+                </button>
+            </div>
+        </div>
+
+        <!-- Розділ 5: Вчитель -->
+        <div class="page" id="page10">
+            <h2 class="chapter-title">Розділ 5. Вчитель</h2>
+            <div class="time-stamp">⏰ Через кілька тижнів, 11:00</div>
+
+            <div class="story-text">
+                <p><strong>Сцена 1. «Ефект свідка»</strong></p>
+                <p>Олег знову в тому самому кафе. Колись тут він сам був на межі помилки, а тепер чує за сусіднім столиком знайому фразу: "Назвіть код із SMS".</p>
+                <p>Жінка говорить тихо, але голос зривається. Схоже, вона не розуміє, що відбувається.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Ще місяць тому я б мовчав. Але якщо зараз промовчу - можливо, повторю свою ж помилку."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page10_2', {id: 'chapter5_bystander_silent', type: 'risky', points: 8})">
+                    🤐 Не втручатися і зробити вигляд, що нічого не почув
+                </button>
+                <button class="choice-button" onclick="goToPage('page10_2', {id: 'chapter5_bystander_help', type: 'safe', points: 18})">
+                    🗣️ Обережно підказати, що розмову краще завершити
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page10_2">
+            <h2 class="chapter-title">Сцена 2. «Цифрове волонтерство» (Група допомоги)</h2>
+            <div class="time-stamp">⏰ 13:30</div>
+
+            <div class="story-text">
+                <p>Після того епізоду Олег частіше пише в локальний чат взаємодопомоги: пояснює схеми, відповідає на питання, заспокоює тих, хто вже в паніці.</p>
+                <p>З часом йому пропонують модерувати окрему гілку - ту, де люди перевіряють підозрілі повідомлення перед тим, як діяти.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Дивно, як власні помилки можуть стати для когось чужим захистом."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page10_3', {id: 'chapter5_volunteer_active', type: 'safe', points: 20})">
+                    🧭 Прийняти роль модератора і вести цю гілку далі
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page10_3">
+            <h2 class="chapter-title">Сцена 3. «Зустріч з минулим» (Дзвінок «з банку»)</h2>
+            <div class="time-stamp">⏰ 17:45</div>
+
+            <div class="story-text">
+                <p>Дзвінок із невідомого номера: "Служба безпеки банку, у вас підозріла операція".</p>
+                <p>Сценарій знайомий до дрібниць. Але цього разу Олег уже не той, що був на початку дороги.</p>
+            </div>
+
+            <div class="emotional-moment">
+                "Можливо, це просто ще один дзвінок. А можливо - останній іспит у цій історії."
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="goToPage('page11', {id: 'chapter5_fake_bank_again', type: 'risky', points: 10, consequence: {text: 'Повторна спроба соціальної інженерії', severity: 'medium'}})">
+                    ☎️ Уточнювати деталі в розмові з невідомим номером
+                </button>
+                <button class="choice-button" onclick="goToPage('page11', {id: 'chapter5_fake_bank_block', type: 'safe', points: 22})">
+                    🚫 Завершити дзвінок і зв'язатися з банком самостійно
+                </button>
+            </div>
+        </div>
+
+        <div class="page" id="page11">
+            <h2 class="chapter-title">Підсумок історії. Контакти автора</h2>
+            <div class="time-stamp">⏰ Фінал</div>
+
+            <div class="story-text">
+                <p>Олег пройшов шлях від розгубленості до впевненості. Його головна перемога - не відсутність помилок, а вміння вчасно зупинятись, перевіряти і допомагати іншим.</p>
+                <p id="chapter5Outcome" style="margin-top: 12px; font-weight: bold;"></p>
+            </div>
+
+            <div class="stats">
+                <div class="stats-title">Фінальний стан</div>
+                💰 Баланс: <span id="currentMoneyFinal"></span> грн<br>
+                ✅ Безпечні рішення: <span id="currentSafetyScoreFinal"></span><br>
+                ⚠️ Ризикові рішення: <span id="currentRiskScoreFinal"></span><br>
+                🧠 Рівень кіберграмотності: <span id="literacyLevelFinal"></span>
+            </div>
+
+            <div class="info">
+                <strong>Контакти автора:</strong><br>
+                Розробник: Сергій Євдокимов<br>
+                Сайт: <a href="https://sargeras197.github.io/contacts/" target="_blank" style="color: white; text-decoration: underline;">https://sargeras197.github.io/contacts/</a>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button" onclick="openStoryMap()">
+                    🗺️ Відкрити карту всієї історії
+                </button>
+            </div>
+
+            <div class="choices">
+                <button class="choice-button secondary" onclick="resetProgress()">
+                    🔄 Пройти історію ще раз
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Інтерактивна карта сюжету -->
+    <div class="container story-map" id="storyMapPage" style="display: none;">
+        <h1>🗺️ Інтерактивна карта історії</h1>
+        <p class="subtitle">Потік історії у вигляді дерева рішень</p>
+
+        <div class="map-description" id="mapDescription">
+            Карта показує чотири етапи історії: вступ, наслідки першого рішення, загострення подій та автоматичний фінал.
+        </div>
+        
+        <div class="map-container">
+            <canvas id="storyGraph"></canvas>
+        </div>
+        
+        <div class="choices">
+            <button class="back-button" onclick="closeStoryMap()">
+                ⬅️ Повернутися до історії
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const storyNameToken = 'Марк';
+
+        function storyChoice(target, label, decision) {
+            const action = target === 'story_final'
+                ? `finishStory(${JSON.stringify(decision)})`
+                : `goToPage("${target}", ${JSON.stringify(decision)})`;
+            return `<button class="choice-button" onclick='${action}'>${label}</button>`;
+        }
+
+        function setupNewStory() {
+            const name = 'Марк';
+            const scenes = {
+                story_intro: {
+                    title: 'Вступ. Голос із кінозали',
+                    time: '⏰ 23:18',
+                    body: `<p><strong>${storyNameToken}</strong>, ти вже вимикаєш світло, коли телефон оживає від голосового повідомлення.</p>
+                        <p>«Це я, Софія. Не лякайся. Приходь до “Маяка” до світанку. Я знайшла те, що ми шукали в дитинстві».</p>
+                        <p>Софія зникла три роки тому після сварки з усіма, хто знав її плани. Тепер її голос звучить так, ніби вона стоїть за дверима. Разом із повідомленням приходить фотографія старої кіноплівки з написом: <em>“Перший промінь”</em>.</p>
+                        <div class="message-box"><strong>Місто:</strong> «Збір на реставрацію “Маяка” завершено. У мережі з’явилися підозрілі прохання про термінові перекази від імені фонду».</div>
+                        <p>Це може бути випадкова тінь. А може — причина, чому Софія не довіряє нікому.</p>`,
+                    choices: storyChoice('story_stage1_bank', '🌙 Поїхати до “Маяка” самому', {id: 'stage1_alone', type: 'safe', points: 12}) +
+                        storyChoice('story_stage1_friend', '📞 Зателефонувати Софії та попросити пояснень', {id: 'stage1_call', type: 'safe', points: 15}) +
+                        storyChoice('story_stage1_bank', '💸 Перевірити оголошення про збір і переказати гроші', {id: 'stage1_donation', type: 'risky', points: 12, moneyChange: -500, consequence: {text: 'Поспішний переказ на сумнівний збір', severity: 'medium'}})
+                },
+                story_stage1_bank: {
+                    title: 'Розділ 1. Порожня кінозала',
+                    time: '⏰ 23:46',
+                    body: `<p>Двері “Маяка” відчиняються від твого дотику. Усередині пахне пилом, дощем і старою плівкою.</p>
+                        <p>На сцені лежить котушка. На ній — кадри з дитячого фестивалю, де ви із Софією запускали саморобні ліхтарики. Але останній кадр зовсім недитячий: у віддзеркаленні вікна видно людину, яка виносить коробки з архіву.</p>
+                        <p>Під котушкою записка: <em>«Не вір першій версії. Шукай там, де світло не гасне».</em></p>`,
+                    choices: storyChoice('story_stage2_1', '🔦 Обшукати кінобудку та знайти джерело світла', {id: 'stage2_projection', type: 'safe', points: 18}) +
+                        storyChoice('story_stage2_2', '🪟 Перевірити віддзеркалення у вікні', {id: 'stage2_window', type: 'safe', points: 15})
+                },
+                story_stage1_friend: {
+                    title: 'Розділ 1. Софіїн ключ',
+                    time: '⏰ 23:51',
+                    body: `<p>Софія відповідає не одразу. Нарешті чути її дихання й далеку електричку.</p>
+                        <p>«Я знала, що ти приїдеш, ${storyNameToken}. У мене є лише кілька хвилин. Хтось продає архів “Маяка” приватному колекціонеру. Підроблений благодійний збір — спосіб виманити в людей гроші й відвести увагу».</p>
+                        <p>Вона надсилає фото ключа та просить знайти таємний зал під сценою. «Якщо побачиш моє ім’я в оголошенні — не вір. Це не я».</p>`,
+                    choices: storyChoice('story_stage2_3', '🗝️ Довіритися Софії та шукати під сценою', {id: 'stage2_trust', type: 'safe', points: 18}) +
+                        storyChoice('story_stage2_4', '🧭 Спершу перевірити історію збору через офіційні джерела', {id: 'stage2_verify', type: 'safe', points: 16})
+                },
+                story_stage2_1: {
+                    title: 'Розділ 2. Перший промінь',
+                    time: '⏰ 00:07',
+                    body: `<p>У кінобудці ти знаходиш старий проєктор. Він працює від одного натискання, хоча електрики в будівлі немає.</p>
+                        <p>На екрані з’являється карта міста, намальована світлом. Червона крапка пульсує біля річкового маяка. Внизу кадру Софія залишила фразу: «Приходь не один — візьми з собою того, кому віриш».</p>`,
+                    choices: storyChoice('story_stage3_careful', '🤝 Написати Софії, що ти знайшов карту', {id: 'stage3_map', type: 'safe', points: 20}) +
+                        storyChoice('story_stage3_risk', '🏃 Піти до маяка самому, поки ніхто не випередив', {id: 'stage3_hurry', type: 'risky', points: 15})
+                },
+                story_stage2_2: {
+                    title: 'Розділ 2. Віддзеркалення',
+                    time: '⏰ 00:12',
+                    body: `<p>У вікні відбивається не лише порожня вулиця. На склі проступають літери, видимі тільки під кутом: <em>“Архів не знищено”</em>.</p>
+                        <p>Ти фотографуєш напис. У цей момент у телефоні з’являється нове оголошення: «Терміновий збір на “Маяк”. Останній шанс». На світлині використано ту саму котушку.</p>`,
+                    choices: storyChoice('story_stage3_investigate', '🔎 Зберегти докази й передати їх Софії', {id: 'stage3_evidence', type: 'safe', points: 22}) +
+                        storyChoice('story_stage3_careful', '🗑️ Видалити оголошення та залишити все в минулому', {id: 'stage3_silence', type: 'risky', points: 8})
+                },
+                story_stage2_3: {
+                    title: 'Розділ 2. Під сценою',
+                    time: '⏰ 00:19',
+                    body: `<p>Під сценою справді є двері. За ними — маленька кімната з десятками коробок і листами Софії до міської ради.</p>
+                        <p>Вона намагалася врятувати “Маяк” законно, але хтось підробив документи й тепер збирає пожертви від її імені. На дні коробки лежить плівка з фінальним фрагментом.</p>`,
+                    choices: storyChoice('story_stage3_investigate', '🎞️ Забрати плівку й разом розповісти правду', {id: 'stage3_truth', type: 'safe', points: 22}) +
+                        storyChoice('story_stage3_risk', '🤐 Сховати плівку, щоб ніхто не знайшов', {id: 'stage3_hide', type: 'risky', points: 15})
+                },
+                story_stage2_4: {
+                    title: 'Розділ 2. Сліди в мережі',
+                    time: '⏰ 00:24',
+                    body: `<p>Офіційна сторінка міста підтверджує: справжній фонд не просить переказів на особисті картки. Ти надсилаєш Софії скриншоти.</p>
+                        <p>«Тоді все сходиться, — відповідає вона. — Нам потрібен не герой, а свідок». За адресою платежів видно, що шахрайство пов’язане з компанією, яка хоче купити землю під кінотеатром.</p>`,
+                    choices: storyChoice('story_stage3_investigate', '📋 Зібрати докази й звернутися до журналістів', {id: 'stage3_report', type: 'safe', points: 22}) +
+                        storyChoice('story_stage3_careful', '⏳ Почекати ранку й не втручатися', {id: 'stage3_wait', type: 'risky', points: 8})
+                },
+                story_stage3_careful: {
+                    title: 'Фінал. До світанку',
+                    time: '⏰ 04:38',
+                    body: `<p>Коли над річкою з’являється перша смуга світла, Софія нарешті входить до зали. Вона змучена, але усміхається: «Я боялася, що ти не прийдеш».</p>
+                        <p>Попереду — складна розмова, та тепер у вас є факти, плівка і вибір: зберегти пам’ять тихо або повернути її місту.</p>`,
+                    choices: storyChoice('story_final', '🌅 Зустріти світанок разом і відкрити правду', {id: 'final_careful', type: 'safe', points: 15}) +
+                        storyChoice('story_final', '🔕 Залишити таємницю тільки між вами', {id: 'final_late', type: 'risky', points: 5})
+                },
+                story_stage3_risk: {
+                    title: 'Фінал. Темний коридор',
+                    time: '⏰ 04:12',
+                    body: `<p>Поспіх заводить тебе в коридор, де кожен звук стає чужим кроком. Софія знаходить тебе біля виходу й стискає в долоні ключ.</p>
+                        <p>«Ти не мусиш усе витримувати сам, ${storyNameToken}. Але якщо ми мовчатимемо, чужа історія стане правдою».</p>`,
+                    choices: storyChoice('story_final', '🆘 Розповісти Софії все та почати відновлення', {id: 'final_recovery', type: 'safe', points: 18}) +
+                        storyChoice('story_final', '🙈 Нічого не змінювати й піти', {id: 'final_loss', type: 'risky', points: 12})
+                },
+                story_stage3_investigate: {
+                    title: 'Фінал. Кадр, якого бракувало',
+                    time: '⏰ 05:01',
+                    body: `<p>Останній кадр показує справжню історію “Маяка”: кінотеатр будували волонтери, а Софія зберігала їхні імена, щоб місто не забуло.</p>
+                        <p>Ти й Софія передаєте матеріали журналістам. Шахрайський збір зникає, а люди нарешті бачать, за що боролися. Ваше розслідування стає початком нової історії.</p>`,
+                    choices: storyChoice('story_final', '🤝 Передати докази й запросити місто на показ', {id: 'final_helper', type: 'safe', points: 22}) +
+                        storyChoice('story_final', '🔒 Зберегти плівку лише для себе і Софії', {id: 'final_private', type: 'safe', points: 10})
+                }
+            };
+
+            Object.entries(scenes).forEach(([id, scene]) => {
+                const page = document.getElementById(id);
+                if (!page) return;
+                page.innerHTML = `<h2 class="chapter-title">${scene.title}</h2><div class="time-stamp">${scene.time}</div><div class="story-text">${scene.body.replaceAll(storyNameToken, name)}</div><div class="choices">${scene.choices}</div>`;
+            });
+
+            const intro = document.getElementById('intro');
+            if (intro) intro.querySelector('h1').innerHTML = `Світло після<br>опівночі`;
+        }
+
+        // Система відстеження рішень гравця
+        let gameState = {
+            playerName: 'Марк',
+            safetyScore: 0,      // Бали за безпечні рішення
+            riskScore: 0,        // Бали за ризиковані рішення
+            money: 4850,         // Поточна кількість грошей
+            decisions: [],       // Історія рішень
+            consequences: []     // Активні наслідки
+        };
+
+        function updatePackingChoiceVisibility() {
+            const packBtn = document.getElementById('packFirstChoiceBtn');
+            if (!packBtn) return;
+
+            const isPackingChosen = sessionStorage.getItem('scene1PackingChosen') === 'true';
+            packBtn.style.display = isPackingChosen ? 'none' : 'block';
+        }
+        
+        function goToPage(pageId, decision = null) {
+            if (pageId === 'scene1_packing') {
+                sessionStorage.setItem('scene1PackingChosen', 'true');
+            }
+
+            // Зберігаємо рішення, якщо воно є
+            if (decision) {
+                gameState.decisions.push(decision);
+                
+                // Оновлюємо бали залежно від типу рішення
+                if (decision.type === 'safe') {
+                    gameState.safetyScore += decision.points || 10;
+                } else if (decision.type === 'risky') {
+                    gameState.riskScore += decision.points || 10;
+                }
+                
+                // Оновлюємо гроші
+                if (decision.moneyChange) {
+                    gameState.money += decision.moneyChange;
+                }
+                
+                // Додаємо наслідки
+                if (decision.consequence) {
+                    gameState.consequences.push(decision.consequence);
+                }
+                
+                saveGameState();
+            }
+            
+            //Ховаємо всі сторінки
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Показуємо потрібну сторінку
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+
+                if (pageId === 'page1') {
+                    updatePackingChoiceVisibility();
+                }
+
+                if (pageId === 'page2') {
+                    updatePage2TicketContext();
+                }
+
+                if (pageId === 'page3') {
+                    updateChapterOneSummary();
+                }
+
+                if (pageId === 'page5_summary') {
+                    updateChapterTwoSummary();
+                }
+
+                if (pageId === 'page7') {
+                    updateChapterThreeSummary();
+                }
+
+                if (pageId === 'page9') {
+                    updateChapterFourSummary();
+                }
+
+                if (pageId === 'page11') {
+                    updateChapterFiveSummary();
+                    updateFinalSummary();
+                }
+                
+                // Прокручуємо наверх
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Зберігаємо прогрес
+                saveProgress(pageId);
+            }
+        }
+
+        function finishStory(decision) {
+            goToPage('story_final', decision);
+
+            const finalText = document.getElementById('storyFinalText');
+            const safetyElem = document.getElementById('newSafetyScore');
+            const riskElem = document.getElementById('newRiskScore');
+            const moneyElem = document.getElementById('newMoney');
+
+            if (finalText) {
+                const endings = {
+                    final_careful: `${gameState.playerName} і Софія зустріли світанок у порожній кінозалі. Вони не стали героями з газет — просто повернули місту його пам’ять і не дозволили шахрайству переписати правду.`,
+                    final_recovery: `${gameState.playerName} визнав(ла), що поспіх завів у темний коридор. Софія не дорікала: разом вони відновили докази, а їхня довіра виявилася міцнішою за будь-яку пастку.`,
+                    final_helper: `${gameState.playerName} і Софія відкрили архів місту. Перший показ “Маяка” зібрав людей, чиї імена жили на плівці, а шахрайський збір зник без сліду.`,
+                    final_private: `${gameState.playerName} зберіг(ла) плівку разом із Софією. Це була тиха перемога, але обоє знали: колись історію доведеться розповісти всім.`,
+                    final_late: `${gameState.playerName} залишив(ла) таємницю між собою і Софією. Вони врятували плівку, та місто ще довго не знало, хто намагався викрасти його пам’ять.`,
+                    final_loss: `${gameState.playerName} пішов(ла) до світанку, не наважившись змінити події. Софія не зникла вдруге — вона лишила ключ і записку: “Коли будеш готовий, повернися”.`
+                };
+                finalText.textContent = (endings[decision.id] || endings.final_private).replaceAll(storyNameToken, gameState.playerName);
+            }
+
+            if (safetyElem) safetyElem.textContent = gameState.safetyScore;
+            if (riskElem) riskElem.textContent = gameState.riskScore;
+            if (moneyElem) moneyElem.textContent = gameState.money;
+        }
+
+        function hasLegitTicketPurchase() {
+            return gameState.decisions.some(d => d.id === 'continue_safe' || d.id === 'continue_safest');
+        }
+
+        function updatePage2TicketContext() {
+            const contextElem = document.getElementById('page2TicketContext');
+            if (!contextElem) return;
+
+            if (hasLegitTicketPurchase()) {
+                contextElem.textContent = 'Після реальної купівлі квитка на офіційному сайті йому телефонує "служба підтримки платежів" і повідомляє про нібито дубль-списання.';
+            } else {
+                contextElem.textContent = 'Попри хаотичний ранок, йому телефонує псевдопідтримка і повідомляє про нібито помилковий платіж, який треба терміново "підтвердити".';
+            }
+        }
+
+        function getWalletStatus() {
+            if (gameState.money >= 4000) {
+                return 'Повний';
+            }
+            if (gameState.money >= 2000) {
+                return 'Половина';
+            }
+            return 'Порожній';
+        }
+
+        function getLiteracyLevel() {
+            const score = gameState.safetyScore - gameState.riskScore;
+            if (score >= 30) {
+                return 'Експерт';
+            }
+            if (score >= 10) {
+                return 'Обережний';
+            }
+            return 'Новачок';
+        }
+
+        function updateChapterOneSummary() {
+            const walletElem = document.getElementById('walletStatus');
+            const literacyElem = document.getElementById('literacyLevel');
+            const safetyElem = document.getElementById('currentSafetyScore');
+            const riskElem = document.getElementById('currentRiskScore');
+            const moneyElem = document.getElementById('currentMoney');
+
+            if (walletElem) walletElem.textContent = getWalletStatus();
+            if (literacyElem) literacyElem.textContent = getLiteracyLevel();
+            if (safetyElem) safetyElem.textContent = gameState.safetyScore;
+            if (riskElem) riskElem.textContent = gameState.riskScore;
+            if (moneyElem) moneyElem.textContent = gameState.money;
+        }
+
+        function hasDecision(decisionId) {
+            return gameState.decisions.some(d => d.id === decisionId);
+        }
+
+        function updateChapterTwoSummary() {
+            const outcomeElem = document.getElementById('chapter2Outcome');
+            const aftertasteElem = document.getElementById('chapter2Aftertaste');
+            if (!outcomeElem) return;
+
+            if (hasDecision('chapter2_qr_enter_data') && hasDecision('chapter2_evil_twin_frefre')) {
+                outcomeElem.textContent = 'Підсумок твого шляху: поспіх двічі коштував дорого - дані опинилися під ризиком, а 500 грн зникли через оренду-пастку.';
+                if (aftertasteElem) aftertasteElem.textContent = 'Післясмак сцени: у Київ Олег в\'їжджає з важким відчуттям провини, але вже з твердим наміром більше не реагувати на тиск часу.';
+                return;
+            }
+
+            if (hasDecision('chapter2_qr_check') && hasDecision('chapter2_evil_twin_avoided')) {
+                outcomeElem.textContent = 'Підсумок твого шляху: ти пройшов(ла) Розділ 2 максимально обережно - перевірка джерел і холодна голова зберегли гроші та нерви.';
+                if (aftertasteElem) aftertasteElem.textContent = 'Післясмак сцени: поїзд прибуває, і замість паніки Олег відчуває контроль - це найкращий старт для нового міста.';
+                return;
+            }
+
+            if (hasDecision('chapter2_qr_scan') || hasDecision('chapter2_evil_twin_connect') || hasDecision('chapter2_evil_twin_frefre')) {
+                outcomeElem.textContent = 'Підсумок твого шляху: були ризикові кроки, але досвід допоміг зупинитися до критичних втрат. Далі важливо не діяти під тиском часу.';
+                if (aftertasteElem) aftertasteElem.textContent = 'Післясмак сцени: Олег втомлений, але уважніший, ніж зранку - дорога вже почала його змінювати.';
+                return;
+            }
+
+            outcomeElem.textContent = 'Підсумок твого шляху: ти тримав(ла) контроль у напружених умовах дороги і не дав(ла) шахрайським сценаріям зламати маршрут.';
+            if (aftertasteElem) aftertasteElem.textContent = 'Післясмак сцени: у вагоні стає тихіше, і вперше за день Олег розуміє, що встиг на свій шанс без зайвих втрат.';
+        }
+
+        function updateChapterThreeSummary() {
+            const outcomeElem = document.getElementById('chapter3Outcome');
+            if (!outcomeElem) return;
+
+            const tookAtmRisk = hasDecision('chapter3_atm_rush');
+            const tookTaxiRisk = hasDecision('chapter3_taxi_fake');
+            const tookRentRisk = hasDecision('chapter3_rent_trap');
+
+            const riskCount = [tookAtmRisk, tookTaxiRisk, tookRentRisk].filter(Boolean).length;
+
+            if (riskCount === 0) {
+                outcomeElem.textContent = 'Твоя версія історії: Олег діяв повільніше, але впевненіше - і вийшов з вечора без критичних втрат.';
+                return;
+            }
+
+            if (riskCount === 1) {
+                outcomeElem.textContent = 'Твоя версія історії: один поспішний крок дав про себе знати, але Олег встиг вирівняти курс до кінця розділу.';
+                return;
+            }
+
+            if (riskCount === 2) {
+                outcomeElem.textContent = 'Твоя версія історії: цього вечора місто кілька разів ловило Олега на втомі - і ціна рішень стала відчутною.';
+                return;
+            }
+
+            outcomeElem.textContent = 'Твоя версія історії: майже кожне рішення приймалося під тиском, і Розділ 3 завершився важким, але важливим уроком.';
+        }
+
+        function updateChapterFourSummary() {
+            const outcomeElem = document.getElementById('chapter4Outcome');
+            if (!outcomeElem) return;
+
+            const decisions = [
+                hasDecision('chapter4_vpo_phish'),
+                hasDecision('chapter4_file_attack'),
+                hasDecision('chapter4_job_trap'),
+                hasDecision('chapter4_fake_friend_help')
+            ];
+
+            const riskCount = decisions.filter(Boolean).length;
+
+            if (riskCount <= 1) {
+                outcomeElem.textContent = 'Твоя версія історії: Олег втримав ритм і не дозволив дрібним пасткам зібратися в одну велику проблему.';
+                return;
+            }
+
+            if (riskCount === 2) {
+                outcomeElem.textContent = 'Твоя версія історії: день виявився нерівним - були втрати, але Олег встиг повернути контроль до кінця розділу.';
+                return;
+            }
+
+            outcomeElem.textContent = 'Твоя версія історії: адаптація пройшла через жорсткі помилки, і саме вони змусили Олега змінити свої звички радикально.';
+        }
+
+        function updateChapterFiveSummary() {
+            const outcomeElem = document.getElementById('chapter5Outcome');
+            if (!outcomeElem) return;
+
+            const helped = hasDecision('chapter5_bystander_help');
+            const blockedFakeCall = hasDecision('chapter5_fake_bank_block');
+
+            if (helped && blockedFakeCall) {
+                outcomeElem.textContent = 'Твоя версія фіналу: Олег не просто захистив себе - він став людиною, яка допомагає іншим пройти цей шлях без зайвих втрат.';
+                return;
+            }
+
+            if (helped || blockedFakeCall) {
+                outcomeElem.textContent = 'Твоя версія фіналу: Олег ще вчиться, але вже не повертається до старих автоматичних помилок.';
+                return;
+            }
+
+            outcomeElem.textContent = 'Твоя версія фіналу: шлях залишився складним, але історія не завершилась - це лише точка, з якої Олег починає переосмислення.';
+        }
+
+        function updateFinalSummary() {
+            const moneyElem = document.getElementById('currentMoneyFinal');
+            const safetyElem = document.getElementById('currentSafetyScoreFinal');
+            const riskElem = document.getElementById('currentRiskScoreFinal');
+            const literacyElem = document.getElementById('literacyLevelFinal');
+
+            if (moneyElem) moneyElem.textContent = gameState.money;
+            if (safetyElem) safetyElem.textContent = gameState.safetyScore;
+            if (riskElem) riskElem.textContent = gameState.riskScore;
+            if (literacyElem) literacyElem.textContent = getLiteracyLevel();
+        }
+        
+        // Збереження прогресу в localStorage
+        function saveProgress(pageId) {
+            localStorage.setItem('olegStoryProgress', pageId);
+        }
+        
+        // Збереження стану гри
+        function saveGameState() {
+            localStorage.setItem('olegGameState', JSON.stringify(gameState));
+        }
+        
+        // Завантаження стану гри
+        function loadGameState() {
+            const saved = localStorage.getItem('olegGameState');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        }
+        
+        // Завантаження прогресу
+        function loadProgress() {
+            const savedPage = localStorage.getItem('olegStoryProgress');
+            loadGameState();
+            if (savedPage && document.getElementById(savedPage)) {
+                goToPage(savedPage);
+            }
+        }
+        
+        // Скидання прогресу
+        function resetProgress() {
+            if (confirm('Ви впевнені, що хочете скинути весь прогрес?')) {
+                localStorage.removeItem('olegStoryProgress');
+                localStorage.removeItem('olegGameState');
+                localStorage.removeItem('olegStorySettings');
+                localStorage.removeItem('scene1PackingChosen');
+                sessionStorage.removeItem('scene1PackingChosen');
+                gameState = {
+                    playerName: 'Марк',
+                    safetyScore: 0,
+                    riskScore: 0,
+                    money: 4850,
+                    decisions: [],
+                    consequences: []
+                };
+                setupNewStory();
+                closeSettings();
+                goToPage('intro');
+            }
+        }
+        
+        // Логіка для вибору речей у валізу (Сцена 1)
+        function submitScene1Packing(e) {
+            e.preventDefault();
+            const form = document.getElementById('scene1PackingForm');
+            const checked = Array.from(form.querySelectorAll('input[type=checkbox]:checked'));
+            const warning = document.getElementById('scene1PackingWarning');
+            if (checked.length < 4) {
+                warning.textContent = 'Обери рівно 4 речі!';
+                warning.style.display = 'block';
+                return false;
+            }
+            if (checked.length > 4) {
+                warning.textContent = 'Можна взяти лише 4 речі!';
+                warning.style.display = 'block';
+                return false;
+            }
+            warning.style.display = 'none';
+            // Показати підсумок
+            const summary = document.getElementById('scene1PackingSummary');
+            summary.innerHTML = '<p>Ти обрав(ла):</p><ul>' + checked.map(i => '<li>' + i.value + '</li>').join('') + '</ul>' +
+                '<p style="margin-top:20px; color:#495057;">Валіза закрита. Час іти. Головне — нічого не забути в цифровому світі.</p>';
+
+            updatePackingChoiceVisibility();
+            goToPage('scene1_packing_result');
+            return false;
+        }
+        
+        // Отримання фінальної кінцівки на основі рішень
+        function getFinalEnding() {
+            const totalScore = gameState.safetyScore - gameState.riskScore;
+            const hasLostMoney = gameState.money < 2000;
+            const majorMistakes = gameState.consequences.filter(c => c.severity === 'high').length;
+            
+            if (totalScore >= 50 && !hasLostMoney) {
+                return 'perfect'; // Ідеальне закінчення
+            } else if (totalScore >= 30) {
+                return 'good'; // Хороше закінчення
+            } else if (totalScore >= 0) {
+                return 'mixed'; // Змішане закінчення
+            } else if (majorMistakes >= 2) {
+                return 'bad'; // Погане закінчення
+            } else {
+                return 'struggle'; // Закінчення боротьби
+            }
+        }
+        
+        // Показати поточну статистику
+        function showCurrentStats() {
+            // Оновлюємо значення в статистиці
+            const safetyElem = document.getElementById('currentSafetyScore');
+            const riskElem = document.getElementById('currentRiskScore');
+            const moneyElem = document.getElementById('currentMoney');
+            const decisionsElem = document.getElementById('totalDecisions');
+            
+            if (safetyElem) safetyElem.textContent = gameState.safetyScore;
+            if (riskElem) riskElem.textContent = gameState.riskScore;
+            if (moneyElem) moneyElem.textContent = gameState.money;
+            if (decisionsElem) decisionsElem.textContent = gameState.decisions.length;
+            
+            // Показуємо детальну інформацію
+            const details = gameState.decisions.map((d, i) => 
+                `${i + 1}. ${d.id} (${d.type === 'safe' ? '✅ безпечно' : '⚠️ ризиковано'}, ${d.points || 0} балів)`
+            ).join('\n');
+            
+            alert(`📊 Детальна статистика вашої подорожі:\n\n${details}\n\nЗагальний баланс: ${gameState.money} грн\nБезпечні бали: ${gameState.safetyScore}\nРизикові бали: ${gameState.riskScore}`);
+        }
+        
+        // ===== НАЛАШТУВАННЯ =====
+        
+        function openSupportModal() {
+            document.getElementById('supportModal').classList.add('active');
+        }
+        
+        function closeSupportModal() {
+            document.getElementById('supportModal').classList.remove('active');
+        }
+        
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+            loadSettings();
+        }
+        
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+        
+        function changeZoom(value) {
+            document.getElementById('zoomValue').textContent = value + '%';
+            document.querySelector('.container').style.fontSize = value + '%';
+            saveSettingValue('zoom', value);
+        }
+        
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+            saveSettingValue('theme', theme);
+        }
+        
+        function changeLanguage(lang) {
+            saveSettingValue('language', lang);
+            // Тут буде логіка зміни мови (поки що просто зберігаємо)
+            alert('Переклад буде доданий в наступних версіях. Translation coming soon!');
+        }
+        
+        function saveSettingValue(key, value) {
+            let settings = JSON.parse(localStorage.getItem('olegStorySettings') || '{}');
+            settings[key] = value;
+            localStorage.setItem('olegStorySettings', JSON.stringify(settings));
+        }
+        
+        function loadSettings() {
+            let settings = JSON.parse(localStorage.getItem('olegStorySettings') || '{}');
+            
+            // Масштабування
+            if (settings.zoom) {
+                document.getElementById('zoomSlider').value = settings.zoom;
+                changeZoom(settings.zoom);
+            }
+            
+            // Тема
+            if (settings.theme) {
+                document.getElementById('themeSelect').value = settings.theme;
+                changeTheme(settings.theme);
+            }
+            
+            // Мова
+            if (settings.language) {
+                document.getElementById('languageSelect').value = settings.language;
+            }
+        }
+        
+        // ===== ІНТЕРАКТИВНА КАРТА =====
+        
+        let storyStructure = {
+            intro: { 
+                title: 'Початок', 
+                type: 'start',
+                x: 400, y: 50,
+                children: ['page1'],
+                storyLine: 0
+            },
+            page1: { 
+                title: 'Розділ 1: Початок', 
+                type: 'choice',
+                x: 400, y: 150,
+                children: ['page1_1', 'scene1_packing', 'page1_3'],
+                storyLine: 1
+            },
+            // Гілка 1: Перевірка балансу
+            page1_1: { 
+                title: 'Перевірка балансу', 
+                type: 'choice',
+                x: 200, y: 250,
+                children: ['page1_1a', 'page1_1b', 'page1_1c'],
+                storyLine: 2
+            },
+            page1_1a: { 
+                title: 'Фішинг (втрата)', 
+                type: 'bad',
+                x: 100, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Клік на SMS'
+            },
+            page1_1b: { 
+                title: 'Перевірка ✓', 
+                type: 'good',
+                x: 200, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Перевірити'
+            },
+            page1_1c: { 
+                title: 'Офіційний сайт ✓✓', 
+                type: 'good',
+                x: 300, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Офіц сайт'
+            },
+            // Гілка 2: Сцена 1. Збір валізи
+            scene1_packing: {
+                title: 'Сцена 1: Збір валізи',
+                type: 'choice',
+                x: 400, y: 250,
+                children: ['scene1_packing_result'],
+                storyLine: 2
+            },
+            scene1_packing_result: {
+                title: 'Валіза зібрана ✓',
+                type: 'good',
+                x: 400, y: 350,
+                children: ['page1'],
+                storyLine: 3,
+                choice: 'Обрати 4 речі'
+            },
+            // Гілка 3: Кава і роздуми
+            page1_3: { 
+                title: 'Кава і роздуми', 
+                type: 'choice',
+                x: 600, y: 250,
+                children: ['page1_3a', 'page1_3b', 'page1_3c'],
+                storyLine: 2
+            },
+            page1_3a: { 
+                title: 'Посилка (втрата)', 
+                type: 'bad',
+                x: 550, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Перейти'
+            },
+            page1_3b: { 
+                title: 'Офіц. додаток ✓✓', 
+                type: 'good',
+                x: 630, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Додаток'
+            },
+            page1_3c: { 
+                title: 'Видалити ✓✓✓', 
+                type: 'good',
+                x: 710, y: 350,
+                children: ['page2'],
+                storyLine: 3,
+                choice: 'Видалити'
+            },
+            // Сцена дзвінка про псевдоповернення
+            page2: { 
+                title: 'Псевдоповернення', 
+                type: 'choice',
+                x: 400, y: 480,
+                children: ['page2_1', 'page2_2', 'page2_3'],
+                storyLine: 4
+            },
+            page2_1: {
+                title: 'Дані картки (втрата)',
+                type: 'bad',
+                x: 250, y: 580,
+                children: ['page3'],
+                storyLine: 5,
+                choice: 'Продиктувати'
+            },
+            page2_2: {
+                title: 'Номер заявки ✓',
+                type: 'good',
+                x: 400, y: 580,
+                children: ['page3'],
+                storyLine: 5,
+                choice: 'Перевірити дані'
+            },
+            page2_3: {
+                title: 'Скинути/перевірити ✓✓',
+                type: 'good',
+                x: 550, y: 580,
+                children: ['page3'],
+                storyLine: 5,
+                choice: 'Офіц. канали'
+            },
+            page3: {
+                title: 'Підсумок розділу 1',
+                type: 'neutral',
+                x: 400, y: 700,
+                children: ['page4'],
+                storyLine: 6
+            },
+            
+            // Розділ 2: Дорога до нового життя
+            page4: {
+                title: 'Початкова сцена',
+                type: 'neutral',
+                x: 400, y: 850,
+                children: ['page4_1'],
+                storyLine: 7
+            },
+            page4_1: {
+                title: 'Сцена 1: QR і вибір',
+                type: 'choice',
+                x: 400, y: 980,
+                children: ['page4_3', 'page4_4', 'page5'],
+                storyLine: 8
+            },
+            page4_3: {
+                title: 'Сцена 1: Ризик QR',
+                type: 'bad',
+                x: 250, y: 1100,
+                children: ['page4_5', 'page4_4'],
+                storyLine: 9,
+                choice: 'Сканувати'
+            },
+            page4_4: {
+                title: 'Сцена 1: Перевірка ✓',
+                type: 'good',
+                x: 700, y: 1100,
+                children: ['page5'],
+                storyLine: 9,
+                choice: 'Перевірити'
+            },
+            page4_5: {
+                title: 'Сцена 1: Дані в пастку',
+                type: 'bad',
+                x: 250, y: 1220,
+                children: ['page5'],
+                storyLine: 9,
+                choice: 'Ввести дані'
+            },
+            page5: {
+                title: 'Сцена 2: Evil Twin',
+                type: 'choice',
+                x: 550, y: 1100,
+                children: ['page4_2', 'page5_3', 'page5_2'],
+                storyLine: 10
+            },
+            page4_2: {
+                title: 'Сцена 2: Ризик Wi-Fi',
+                type: 'bad',
+                x: 470, y: 1230,
+                children: ['page5_summary'],
+                storyLine: 10,
+                choice: 'Ivan_Free'
+            },
+            page5_3: {
+                title: 'Сцена 2: Бронь-пастка',
+                type: 'bad',
+                x: 620, y: 1230,
+                children: ['page5_summary'],
+                storyLine: 10,
+                choice: 'FreFreFre'
+            },
+            page5_2: {
+                title: 'Сцена 2: Безпечно ✓',
+                type: 'good',
+                x: 700, y: 1230,
+                children: ['page5_summary'],
+                storyLine: 10,
+                choice: 'Мобільний інтернет'
+            },
+            page5_summary: {
+                title: 'Підсумок Розділу 2',
+                type: 'neutral',
+                x: 400, y: 1320,
+                children: ['page6'],
+                storyLine: 11
+            },
+            
+            // Розділ 3: Нове місто
+            page6: {
+                title: 'Розділ 3: Банкомат',
+                type: 'choice',
+                x: 400, y: 1450,
+                children: ['page6_1', 'page6_2'],
+                storyLine: 12
+            },
+            page6_1: {
+                type: 'bad',
+                title: 'Скімінг (ризик)',
+                x: 250, y: 1570,
+                children: ['page6_2'],
+                storyLine: 13,
+                choice: 'Поспіх'
+            },
+            page6_2: {
+                title: 'Сцена 2: Таксі',
+                type: 'choice',
+                x: 400, y: 1690,
+                children: ['page6_3'],
+                storyLine: 13
+            },
+            page6_3: {
+                title: 'Сцена 3: Оренда-пастка',
+                type: 'choice',
+                x: 400, y: 1810,
+                children: ['page7'],
+                storyLine: 14
+            },
+            page7: {
+                title: 'Підсумок Розділу 3',
+                type: 'neutral',
+                x: 400, y: 1930,
+                children: ['page8'],
+                storyLine: 15
+            },
+            
+            // Розділ 4: Адаптація
+            page8: {
+                title: 'Сцена 1: Виплати ВПО',
+                type: 'choice',
+                x: 400, y: 2070,
+                children: ['page8_2'],
+                storyLine: 16
+            },
+            page8_2: {
+                title: 'Сцена 2: Атака файлом',
+                type: 'choice',
+                x: 400, y: 2190,
+                children: ['page8_3'],
+                storyLine: 17,
+                choice: 'Перевірка'
+            },
+            page8_3: {
+                title: 'Сцена 3: Робота-пастка',
+                type: 'choice',
+                x: 400, y: 2310,
+                children: ['page8_4'],
+                storyLine: 18
+            },
+            page8_4: {
+                title: 'Сцена 4: Viber/Line',
+                type: 'choice',
+                x: 400, y: 2430,
+                children: ['page9'],
+                storyLine: 19
+            },
+            page9: {
+                title: 'Підсумок Розділу 4',
+                type: 'neutral',
+                x: 400, y: 2550,
+                children: ['page10'],
+                storyLine: 20
+            },
+            
+            // Розділ 5: Вчитель
+            page10: {
+                title: 'Сцена 1: Ефект свідка',
+                type: 'choice',
+                x: 400, y: 2700,
+                children: ['page10_2'],
+                storyLine: 21
+            },
+            page10_2: {
+                title: 'Сцена 2: Волонтерство',
+                type: 'choice',
+                x: 400, y: 2820,
+                children: ['page10_3'],
+                storyLine: 22
+            },
+            page10_3: {
+                title: 'Сцена 3: Дзвінок з банку',
+                type: 'choice',
+                x: 400, y: 2940,
+                children: ['page11'],
+                storyLine: 23
+            },
+            page11: {
+                title: 'Фінал і контакти',
+                type: 'neutral',
+                x: 400, y: 3080,
+                children: [],
+                storyLine: 24
+            }
+        };
+
+        storyStructure = {
+            story_intro: { title: 'Вступ: Повідомлення о 22:47', type: 'start', x: 400, y: 80, children: ['story_stage1_bank', 'story_stage1_friend'] },
+            story_stage1_bank: { title: 'Перше рішення: банк', type: 'choice', x: 240, y: 260, children: ['story_stage2_1', 'story_stage2_2'] },
+            story_stage1_friend: { title: 'Перше рішення: Софія', type: 'choice', x: 560, y: 260, children: ['story_stage2_3', 'story_stage2_4', 'story_stage2_5'] },
+            story_stage2_1: { title: 'Код підтвердження', type: 'choice', x: 100, y: 500, children: ['story_stage3_careful', 'story_stage3_risk'] },
+            story_stage2_2: { title: 'Офіційна перевірка', type: 'good', x: 300, y: 500, children: ['story_stage3_investigate', 'story_stage3_careful'] },
+            story_stage2_3: { title: 'Переказ грошей', type: 'bad', x: 480, y: 500, children: ['story_stage3_investigate', 'story_stage3_risk'] },
+            story_stage2_4: { title: 'Дзвінок Софії', type: 'good', x: 650, y: 500, children: ['story_stage3_investigate', 'story_stage3_careful'] },
+            story_stage2_5: { title: 'Соціальна мережа', type: 'choice', x: 820, y: 500, children: ['story_stage3_investigate', 'story_stage3_risk'] },
+            story_stage3_careful: { title: 'Обережність', type: 'choice', x: 180, y: 760, children: ['story_final'] },
+            story_stage3_risk: { title: 'Ризик', type: 'choice', x: 400, y: 760, children: ['story_final'] },
+            story_stage3_investigate: { title: 'Розслідування', type: 'choice', x: 650, y: 760, children: ['story_final'] },
+            story_final: { title: 'Автоматичний фінал', type: 'neutral', x: 400, y: 980, children: [] }
+        };
+        
+        function openStoryMap() {
+            document.getElementById('storyMapPage').style.display = 'block';
+            document.querySelector('.container:not(.story-map)').style.display = 'none';
+            setTimeout(() => drawStoryGraph(), 100);
+        }
+        
+        function closeStoryMap() {
+            document.getElementById('storyMapPage').style.display = 'none';
+            document.querySelector('.container:not(.story-map)').style.display = 'block';
+        }
+        
+        function drawStoryGraph() {
+            const canvas = document.getElementById('storyGraph');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 1100;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawChoicesMode(ctx, canvas);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('storyGraph');
+            
+            canvas.addEventListener('click', function(event) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = (event.clientX - rect.left) * scaleX;
+                const y = (event.clientY - rect.top) * scaleY;
+
+                for (let node of storyNodesPositions) {
+                    const distance = Math.sqrt(
+                        Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2)
+                    );
+
+                    if (distance <= node.radius) {
+                        const targetPage = document.getElementById(node.pageId);
+                        if (targetPage) {
+                            closeStoryMap();
+                            goToPage(node.pageId);
+                        } else {
+                            alert('Ця сцена ще в розробці. Оберіть інший доступний вузол на карті.');
+                        }
+                        break;
+                    }
+                }
+            });
+
+            canvas.addEventListener('mousemove', function(event) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = (event.clientX - rect.left) * scaleX;
+                const y = (event.clientY - rect.top) * scaleY;
+
+                let isOverNode = false;
+
+                for (let node of storyNodesPositions) {
+                    const distance = Math.sqrt(
+                        Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2)
+                    );
+                    
+                    if (distance <= node.radius) {
+                        isOverNode = true;
+                        break;
+                    }
+                }
+                
+                canvas.style.cursor = isOverNode ? 'pointer' : 'default';
+            });
+        });
+        
+        function drawChoicesMode(ctx, canvas) {
+            storyNodesPositions = [];
+
+            canvas.height = 1100;
+            
+            // Малюємо етапи історії фоном
+            const stages = [
+                { name: 'Вступ і перше рішення', y: 0, height: 220, color: 'rgba(102, 126, 234, 0.08)' },
+                { name: 'Наслідки рішення', y: 220, height: 320, color: 'rgba(255, 107, 107, 0.08)' },
+                { name: 'Загострення подій', y: 540, height: 320, color: 'rgba(72, 219, 251, 0.08)' },
+                { name: 'Автоматичний фінал', y: 860, height: 240, color: 'rgba(186, 143, 255, 0.08)' }
+            ];
+            
+            stages.forEach(stage => {
+                ctx.fillStyle = stage.color;
+                ctx.fillRect(0, stage.y, canvas.width, stage.height);
+                
+                // Назва етапу
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(stage.name, 20, stage.y + 25);
+                
+                // Горизонтальна лінія
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(0, stage.y);
+                ctx.lineTo(canvas.width, stage.y);
+                ctx.stroke();
+            });
+            
+            // Малюємо з'єднання
+            ctx.lineWidth = 2.5;
+            
+            Object.keys(storyStructure).forEach(nodeId => {
+                const node = storyStructure[nodeId];
+                node.children.forEach(childId => {
+                    if (storyStructure[childId]) {
+                        const child = storyStructure[childId];
+                        
+                        // Колір лінії залежить від результату
+                        if (child.type === 'bad') {
+                            ctx.strokeStyle = '#ff6b6b';
+                        } else if (child.type === 'good') {
+                            ctx.strokeStyle = '#51cf66';
+                        } else if (child.type === 'choice') {
+                            ctx.strokeStyle = '#ffd43b';
+                        } else {
+                            ctx.strokeStyle = '#adb5bd';
+                        }
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y + 30);
+                        
+                        // Крива Безьє для плавного переходу
+                        const midY = (node.y + child.y) / 2;
+                        ctx.quadraticCurveTo(node.x, midY, child.x, child.y - 30);
+                        ctx.stroke();
+                        
+                        // Мітка на лінії для виборів
+                        if (child.choice) {
+                            const textX = (node.x + child.x) / 2;
+                            const textY = midY - 5;
+                            
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                            ctx.fillRect(textX - 30, textY - 10, 60, 18);
+                            
+                            ctx.fillStyle = '#333';
+                            ctx.font = '10px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(child.choice, textX, textY + 4);
+                        }
+                    }
+                });
+            });
+            
+            // Малюємо вузли
+            Object.keys(storyStructure).forEach(nodeId => {
+                const node = storyStructure[nodeId];
+                
+                // Колір вузла
+                let color, borderColor;
+                switch(node.type) {
+                    case 'start': 
+                        color = '#667eea'; 
+                        borderColor = '#5568d3';
+                        break;
+                    case 'choice': 
+                        color = '#ffd43b'; 
+                        borderColor = '#ffc107';
+                        break;
+                    case 'good': 
+                        color = '#51cf66'; 
+                        borderColor = '#40c057';
+                        break;
+                    case 'bad': 
+                        color = '#ff6b6b'; 
+                        borderColor = '#fa5252';
+                        break;
+                    case 'neutral': 
+                        color = '#74c0fc'; 
+                        borderColor = '#4dabf7';
+                        break;
+                    default: 
+                        color = '#adb5bd';
+                        borderColor = '#868e96';
+                }
+                
+                // Тінь
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 4;
+                
+                // Малюємо коло з градієнтом
+                const gradient = ctx.createRadialGradient(node.x, node.y - 5, 0, node.x, node.y + 5, 30);
+                gradient.addColorStop(0, color);
+                gradient.addColorStop(1, borderColor);
+                
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 28, 0, 2 * Math.PI);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+                
+                // Скидаємо тінь
+                ctx.shadowColor = 'transparent';
+                
+                // Додаємо іконку для виборів
+                if (node.type === 'choice') {
+                    ctx.fillStyle = '#000';
+                    ctx.font = 'bold 22px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('?', node.x, node.y + 8);
+                } else if (node.type === 'bad') {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 20px Arial';
+                    ctx.fillText('✗', node.x, node.y + 7);
+                } else if (node.type === 'good') {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 20px Arial';
+                    ctx.fillText('✓', node.x, node.y + 7);
+                } else if (node.type === 'start') {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.fillText('★', node.x, node.y + 7);
+                } else if (node.type === 'neutral') {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 16px Arial';
+                    ctx.fillText('◆', node.x, node.y + 6);
+                }
+                
+                // Малюємо назву
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                const words = node.title.split(' ');
+                words.forEach((word, i) => {
+                    ctx.fillText(word, node.x, node.y + 55 + (i * 14));
+                });
+                
+                // Мітка етапу
+                if (node.storyLine !== undefined) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                    ctx.font = '9px Arial';
+                    ctx.fillText(`Етап ${node.storyLine + 1}`, node.x, node.y + 55 + (words.length * 14) + 12);
+                }
+
+                storyNodesPositions.push({
+                    x: node.x,
+                    y: node.y,
+                    radius: 28,
+                    pageId: nodeId,
+                    title: node.title
+                });
+            });
+        }
+
+        let storyNodesPositions = [];
+        
+        function getNodeColor(type) {
+            const colors = {
+                'start': '#8b5cf6',
+                'choice': '#eab308',
+                'good': '#10b981',
+                'bad': '#ef4444',
+                'neutral': '#3b82f6',
+                'ending_gold': '#fbbf24',
+                'ending_silver': '#94a3b8',
+                'ending_bronze': '#d97706',
+                'end': '#8b5cf6'
+            };
+            return colors[type] || '#64748b';
+        }
+        
+        function getNodeIcon(type) {
+            const icons = {
+                'start': '★',
+                'choice': '?',
+                'good': '✓',
+                'bad': '✗',
+                'neutral': '◆',
+                'ending_gold': '👑',
+                'ending_silver': '🥈',
+                'ending_bronze': '🥉',
+                'end': '🏁'
+            };
+            return icons[type] || '●';
+        }
+        
+        function drawArrow(ctx, fromX, fromY, toX, toY) {
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const headlen = 15;
+            
+            ctx.save();
+            ctx.strokeStyle = '#764ba2';
+            ctx.fillStyle = '#764ba2';
+            ctx.lineWidth = 3;
+            
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        // Закриття модального вікна при кліку поза ним
+        window.onclick = function(event) {
+            const settingsModal = document.getElementById('settingsModal');
+            const supportModal = document.getElementById('supportModal');
+            
+            if (event.target === settingsModal) {
+                closeSettings();
+            }
+            
+            if (event.target === supportModal) {
+                closeSupportModal();
+            }
+        }
+        
+        // === ІНІЦІАЛІЗАЦІЯ ПРИ ЗАВАНТАЖЕННІ ===
+        function initializeApp() {
+            // Міграція: прибираємо старий прапорець, що ховав кнопку між сесіями
+            localStorage.removeItem('scene1PackingChosen');
+
+            // Видаляємо клас active з усіх сторінок
+            const allPages = document.querySelectorAll('.page');
+            allPages.forEach(page => page.classList.remove('active'));
+
+            setupNewStory();
+            updatePackingChoiceVisibility();
+            
+            // Гарантуємо, що стартова сторінка (intro) видима
+            const introPage = document.getElementById('intro');
+            if (introPage) {
+                introPage.classList.add('active');
+                console.log('✓ Стартова сторінка ініціалізована');
+            } else {
+                console.error('✗ Сторінка intro не знайдена!');
+            }
+        }
+        
+        // Завантажуємо налаштування при старті
+        window.addEventListener('load', () => {
+            initializeApp();
+            loadSettings();
+            // loadProgress(); // Розкоментувати для автозавантаження прогресу
+        });
+        
+        // Також ініціалізуємо при готовності DOM
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
